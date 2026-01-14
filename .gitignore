@@ -1,0 +1,12 @@
+# Secrets
+.env
+.env.local
+
+# Python
+__pycache__/
+*.pyc
+venv/
+
+# Data (We don't commit 100MB PDF files)
+data/raw/*
+!data/raw/.gitkeep

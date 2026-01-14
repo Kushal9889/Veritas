@@ -1,0 +1,20 @@
+# --- CORE INFRASTRUCTURE ---
+python-dotenv==1.0.1          # Environment variable management (Security)
+pydantic==2.8.2               # Strict data validation & schema definition
+
+# --- ORCHESTRATION & FRAMEWORK ---
+langchain==0.2.11             # The composability framework
+langchain-community==0.2.10   # Community integrations (Loaders, splitters)
+langchain-core==0.2.23        # Base abstractions
+langgraph==0.1.14             # State machine for agentic loops (Pre-loading)
+
+# --- AI MODEL INTEGRATION ---
+openai==1.37.0                # Direct API access
+langchain-openai==0.1.17      # LangChain wrapper for Embeddings/Chat
+
+# --- DATA & VECTOR STORE ---
+pinecone-client==5.0.1        # Vector Database client
+tiktoken==0.7.0               # Token counting (Critical for cost/context optimization)
+
+# --- DOCUMENT PROCESSING ---
+pypdf==4.3.0                  # PDF parsing for 10-K filings

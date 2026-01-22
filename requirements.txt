@@ -2,16 +2,20 @@
 python-dotenv==1.0.1
 pydantic==2.8.2
 
-# --- ORCHESTRATION ---
-# We keep core langchain for chunking/prompts, but drop the broken integrations
+## The Golden Stack (Verified Compatible)
 langchain==0.2.11
 langchain-community==0.2.10
 langchain-core==0.2.23
+langchain-experimental==0.0.63
+langchain-text-splitters==0.2.2
 langgraph==0.1.14
+langsmith==0.1.90
 
-# --- AI & DATA ---
-openai==1.37.0
-langchain-openai==0.1.17  # We keep this for Embeddings
-pinecone-client==5.0.1    # THE RAW CLIENT (Works on Py3.13)
+# The Critical Fix: Pinning Google to the 0.2 Era
+langchain-google-genai==1.0.7
+
+# Drivers
+neo4j==5.21.0
+google-generativeai==0.7.0
 tiktoken==0.7.0
-pypdf==4.3.0
+pypdf==4.3.0µ

@@ -1,26 +1,46 @@
 import os
 from dotenv import load_dotenv
 
+# loading envs from .env file
 load_dotenv()
 
 class Settings:
     def __init__(self):
-        # CHANGED: Now looking for Google
+        # google api key for gemini
         self.GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
+        
+        # pinecone config
         self.PINECONE_API_KEY = os.getenv("PINECONE_API_KEY")
         self.PINECONE_INDEX_NAME = os.getenv("PINECONE_INDEX_NAME", "veritas-financial-index")
+        
+        # --- neo4j graph database config ---
+        # added these 
+        self.NEO4J_URI = os.getenv("NEO4J_URI")
+        self.NEO4J_USERNAME = os.getenv("NEO4J_USERNAME")
+        self.NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD")
         
         self._validate()
 
     def _validate(self):
         missing = []
-        # CHANGED: Validation logic
+        
+        # checking google
         if not self.GOOGLE_API_KEY:
             missing.append("GOOGLE_API_KEY")
+            
+        # checking pinecone
         if not self.PINECONE_API_KEY:
             missing.append("PINECONE_API_KEY")
+            
+        # checking neo4j 
+            missing.append("NEO4J_URI")
+        if not self.NEO4J_USERNAME:
+            missing.append("NEO4J_USERNAME")
+        if not self.NEO4J_PASSWORD:
+            missing.append("NEO4J_PASSWORD")
         
         if missing:
-            raise ValueError(f"CRITICAL CONFIG ERROR: Missing environment variables: {', '.join(missing)}")
+            raise ValueError(f"critical config error: missing environment variables: {', '.join(missing)}")
 
+# initializing the settings object
 settings = Settings()

@@ -2,6 +2,8 @@ import google.generativeai as genai
 from src.orchestration.state import AgentState
 from src.retrieval.query import query_financial_docs
 from src.core.config import settings
+from src.tools.search import search_web 
+# ^ removed get_stock_price from import
 
 # setup api key
 genai.configure(api_key=settings.GOOGLE_API_KEY)
@@ -12,7 +14,6 @@ MODEL_NAME = 'models/gemini-2.5-flash'
 def get_persona(question):
     """
     elite persona selector.
-    maps the user intent to a specific c-suite role.
     """
     q = question.lower()
     
@@ -35,16 +36,28 @@ def get_persona(question):
 
 def retrieve_node(state: AgentState):
     """
-    analyst node - fetches docs
+    analyst node - fetches docs AND web data
     """
-    print("--- 🕵️‍♂️ ANALYST: searching for info... ---")
+    print("--- 🕵️‍♂️ ANALYST: gathering intel... ---")
     question = state["question"]
     
-    # getting 5 docs just to be safe
-    results = query_financial_docs(question, top_k=5)
-    retrieved_texts = [r["text"] for r in results]
+    # 1. search internal pdfs (the past)
+    results = query_financial_docs(question, top_k=3)
+    internal_text = "\n".join([r["text"] for r in results])
     
-    return {"documents": retrieved_texts}
+    # 2. search live web (the present)
+    # simple logic: if it looks like a timely question, hit the web
+    web_data = search_web(question + " financial news current")
+    
+    # removed the stock price logic here. purely text based now.
+    
+    # combine it all
+    combined_docs = [
+        f"--- INTERNAL 10-K DATA ---\n{internal_text}",
+        f"--- LIVE WEB SEARCH ---\n{web_data}"
+    ]
+    
+    return {"documents": combined_docs}
 
 def generate_node(state: AgentState):
     """
@@ -53,38 +66,34 @@ def generate_node(state: AgentState):
     question = state["question"]
     documents = state["documents"]
     
-    # determining the elite persona
     role = get_persona(question)
     print(f"--- ✍️ WRITER: adopting persona: {role}... ---")
     
     context_block = "\n\n".join(documents)
     
-    # this prompt is now tuned for "aggressive alpha" tone
-    # no passive voice. no corporate fluff.
     prompt = f"""
     act as a world class {role}. 
-    your goal is to give a brutal, honest, and high-value assessment.
+    you have access to internal filings (past) and live web data (present).
+    your goal is to synthesize these into a killer insight.
     
-    context from 10k filings:
+    data streams:
     {context_block}
     
     user question: 
     {question}
     
     reasoning framework:
-    1. analyze: what is the single biggest lever or threat here?
-    2. extract: find the numbers that matter. ignore the pr speak.
-    3. synthesize: build the case. why does this matter right now?
+    1. compare: does the live news contradict the old 10-k?
+    2. analyze: ignore the fluff. focus on the discrepancies.
+    3. synthesize: give a forward-looking recommendation.
     
     output instructions:
-    - start with a hook. cut straight to the chase. (e.g., "here is the reality," or "let's be clear.")
-    - use strong, active verbs ("dominate," "crush," "double down," "eliminate").
-    - be opinionated. if the data is good, say it's incredible. if it's bad, say it's toxic.
-    - structure: use punchy bullet points.
-    - final verdict: give a clear instruction on what to do next.
+    - start with a hook. cut straight to the chase.
+    - use strong, active verbs.
+    - if you see live news, mention it explicitly ("breaking news suggests...").
+    - final verdict: buy, sell, or hold?
     
     tone: elite, high-conviction, wall street confidence.
-    do not mention "context" or "documents".
     
     answer:
     """
@@ -111,16 +120,14 @@ def grade_documents_node(state: AgentState):
     documents = state["documents"]
     
     if not documents:
-        print("--- ❌ CRITIC: No documents found. ---")
         return {"grade": "not_relevant", "retry_count": state.get("retry_count", 0) + 1}
     
-    docs_to_check = "\n\n".join(documents[:2]) 
+    # quick check
+    docs_to_check = "\n\n".join(documents)[:2000]
     
     prompt = f"""
     you are a strict compliance auditor.
-    check if the text below is relevant to the user question.
-    
-    user question: {question}
+    check if the text below is relevant to the user question: "{question}"
     
     retrieved text:
     {docs_to_check}

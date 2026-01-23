@@ -14,8 +14,16 @@ class Settings:
         self.PINECONE_INDEX_NAME = os.getenv("PINECONE_INDEX_NAME", "veritas-financial-index")
         
         # --- neo4j graph database config ---
-        # added these 
-        self.NEO4J_URI = os.getenv("NEO4J_URI")
+        raw_uri = os.getenv("NEO4J_URI", "")
+        
+        # AUTO-FIX: removing trailing port if user added it
+        # because it causes dns errors with some drivers
+        if ":7687" in raw_uri:
+            raw_uri = raw_uri.replace(":7687", "")
+            
+        # removing extra spaces just in case
+        self.NEO4J_URI = raw_uri.strip()
+        
         self.NEO4J_USERNAME = os.getenv("NEO4J_USERNAME")
         self.NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD")
         
@@ -33,6 +41,7 @@ class Settings:
             missing.append("PINECONE_API_KEY")
             
         # checking neo4j 
+        if not self.NEO4J_URI:
             missing.append("NEO4J_URI")
         if not self.NEO4J_USERNAME:
             missing.append("NEO4J_USERNAME")

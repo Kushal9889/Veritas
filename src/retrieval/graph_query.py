@@ -2,18 +2,40 @@ import sys
 from langchain_community.graphs import Neo4jGraph
 from src.core.config import settings
 
-# connecting to the db
-graph = Neo4jGraph(
-    url=settings.NEO4J_URI,
-    username=settings.NEO4J_USERNAME,
-    password=settings.NEO4J_PASSWORD
-)
+# global graph instance
+graph = None
+
+def init_graph():
+    """
+    safely connects to neo4j. if it fails, it warns but doesnt crash the whole app.
+    """
+    global graph
+    try:
+        print("--- 🕸️ connecting to neo4j... ---")
+        graph = Neo4jGraph(
+            url=settings.NEO4J_URI,
+            username=settings.NEO4J_USERNAME,
+            password=settings.NEO4J_PASSWORD
+        )
+        print("--- ✅ neo4j connected! ---")
+    except Exception as e:
+        print(f"--- ⚠️ graph connection failed: {e}")
+        print("--- continuing without graph memory... ---")
+        graph = None
+
+# try connecting on load
+init_graph()
 
 def query_graph(entity_name):
     """
     dynamic lookup. pass any company/person name here.
     it finds the node and sees what it connects to.
     """
+    # safety check
+    if graph is None:
+        print("--- ⚠️ graph is offline. skipping search. ---")
+        return []
+
     print(f"--- 🕸️ GRAPH QUERY: looking up '{entity_name}'... ---")
     
     # cypher query to find connections

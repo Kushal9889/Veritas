@@ -16,10 +16,10 @@ app = FastAPI(title="Veritas Financial Agent")
 # This allows the Frontend (Port 3000) to talk to this Backend (Port 8000)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"], # Whitelist the frontend
+    allow_origins=["*"], # <--- CHANGE THIS to ["*"] for public deployment
     allow_credentials=True,
-    allow_methods=["*"], # Allow all methods (POST, GET, etc.)
-    allow_headers=["*"], # Allow all headers
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 print("--- 🧠 BUILDING AGENT BRAIN... ---")

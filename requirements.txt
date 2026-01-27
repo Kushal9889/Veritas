@@ -18,4 +18,4 @@ langchain-google-genai==1.0.7
 neo4j==5.21.0
 google-generativeai==0.7.0
 tiktoken==0.7.0
-pypdf==4.3.0µ
+pypdf==4.3.0

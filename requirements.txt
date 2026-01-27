@@ -1,6 +1,8 @@
 # --- CORE INFRASTRUCTURE ---
 python-dotenv==1.0.1
 pydantic==2.8.2
+fastapi==0.111.0
+uvicorn==0.30.1
 
 ## The Golden Stack (Verified Compatible)
 langchain==0.2.11
@@ -19,3 +21,4 @@ neo4j==5.21.0
 google-generativeai==0.7.0
 tiktoken==0.7.0
 pypdf==4.3.0
+pinecone-client==4.0.0

@@ -35,8 +35,14 @@ export default function Home() {
     setLoading(true);
 
     try {
-      // connecting to our python backend
-      const res = await fetch("http://localhost:8000/chat", {
+      // ---------------------------------------------------------
+      // ARCHITECT FIX: Detects if we are on Cloud or Localhost
+      // ---------------------------------------------------------
+      const baseUrl = process.env.NODE_ENV === 'production' 
+        ? '' 
+        : 'http://localhost:8000';
+
+      const res = await fetch(`${baseUrl}/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -58,6 +64,7 @@ export default function Home() {
         },
       ]);
     } catch (err) {
+      console.error(err);
       setMessages((prev) => [
         ...prev,
         { role: "assistant", content: "⚠️ Error connecting to Veritas Brain. Is the backend running?" },
@@ -92,7 +99,6 @@ export default function Home() {
                   : "bg-gray-900 border border-gray-800 text-gray-200 rounded-bl-none"
               }`}
             >
-              {/* --- FIX START: Wrapped ReactMarkdown in a div --- */}
               <div className="prose prose-invert prose-sm max-w-none">
                 <ReactMarkdown 
                   components={{
@@ -102,7 +108,6 @@ export default function Home() {
                   {msg.content}
                 </ReactMarkdown>
               </div>
-              {/* --- FIX END --- */}
 
               {/* SOURCES AREA */}
               {msg.sources && msg.sources.length > 0 && (

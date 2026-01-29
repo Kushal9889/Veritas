@@ -105,7 +105,7 @@ def ingest_into_graph(documents):
     
     # FIX: Use 'gemini-1.5-flash' (2.5 is a typo/unavailable)
     llm = ChatGoogleGenerativeAI(
-        model="gemini-1.5-flash",
+        model="gemini-2.5-flash",
         google_api_key=settings.GOOGLE_API_KEY,
         temperature=0
     )

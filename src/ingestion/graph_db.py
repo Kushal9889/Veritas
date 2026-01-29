@@ -7,11 +7,20 @@ from langchain_core.documents import Document
 from src.core.config import settings
 
 # connecting to neo4j
-graph = Neo4jGraph(
-    url=settings.NEO4J_URI,
-    username=settings.NEO4J_USERNAME,
-    password=settings.NEO4J_PASSWORD
-)
+graph = None
+try:
+    if settings.NEO4J_URI:
+        print(f"--- 🕸️ Connecting to Neo4j... ---")
+        graph = Neo4jGraph(
+            url=settings.NEO4J_URI,
+            username=settings.NEO4J_USERNAME,
+            password=settings.NEO4J_PASSWORD
+        )
+        graph.query("RETURN 1") # Test connection
+        print("--- ✅ Graph DB Online ---")
+except Exception as e:
+    print(f"--- ⚠️ Graph DB Offline. Running in Lite Mode. ---")
+    graph = None
 
 def extract_graph_from_text(llm, text):
     """
@@ -85,28 +94,32 @@ def extract_graph_from_text(llm, text):
 
 def ingest_into_graph(documents):
     """
-    main function to process docs and save to neo4j
+    Main function to process docs and save to Neo4j.
     """
-    print(f"--- 🕸️ GRAPH: starting ingestion for {len(documents)} chunks... ---")
+    # SAFETY CHECK: If graph is None, stop here.
+    if not graph:
+        print("--- ⚠️ Skipping Graph Ingestion (DB is Offline) ---")
+        return
+
+    print(f"--- 🕸️ GRAPH: Starting ingestion for {len(documents)} chunks... ---")
     
+    # FIX: Use 'gemini-1.5-flash' (2.5 is a typo/unavailable)
     llm = ChatGoogleGenerativeAI(
-        model="gemini-2.5-flash",
+        model="gemini-1.5-flash",
         google_api_key=settings.GOOGLE_API_KEY,
         temperature=0
     )
     
-    print("--- ⏳ transforming text to graph (elite few-shot mode)... ---")
+    print("--- ⏳ Transforming text to graph... ---")
     
     graph_documents = []
     
     for i, doc in enumerate(documents):
-        # logging progress cause this takes time
-        print(f"   > processing chunk {i+1}/{len(documents)}...")
+        # logging progress
+        print(f"   > Processing chunk {i+1}/{len(documents)}...")
         
         data = extract_graph_from_text(llm, doc.page_content)
         
-        # manually building the neo4j objects
-        # checking if data is valid before processing
         if not data.get("nodes"):
             continue
 
@@ -124,11 +137,13 @@ def ingest_into_graph(documents):
             gd = GraphDocument(nodes=nodes, relationships=edges, source=doc)
             graph_documents.append(gd)
             
-    print(f"--- ✅ extracted {len(graph_documents)} graph structures. saving to db... ---")
+    print(f"--- ✅ Extracted {len(graph_documents)} graph structures. Saving to DB... ---")
     
-    # saving to neo4j
     if graph_documents:
-        graph.add_graph_documents(graph_documents)
-        print("--- 🚀 graph ingestion complete. check neo4j browser. ---")
+        try:
+            graph.add_graph_documents(graph_documents)
+            print("--- 🚀 Graph ingestion complete. Check Neo4j Browser. ---")
+        except Exception as e:
+            print(f"--- ❌ Failed to write to Neo4j: {e} ---")
     else:
-        print("--- ⚠️ no graph data found. something might be wrong. ---")
+        print("--- ⚠️ No graph data found. ---")

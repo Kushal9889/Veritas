@@ -1,13 +1,37 @@
-# Secrets
-.venv
+# Secrets & Environments
+.venv/
+venv/
 .env
 .env.local
+.python-version
+.vscode/
+.DS_Store
 
-# Python
-__pycache__/
+# Python & Build
+**/__pycache__/
 *.pyc
-venv/
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+build/
+dist/
+*.egg-info/
 
-# Data (We don't commit 100MB PDF files)
+# Databases & Large Data (Essential for RAG)
+chroma_db/
+data/cache/
+data/extracted_images/
+data/ingestion/
 data/raw/*
 !data/raw/.gitkeep
+
+# Automation/Audit Artifacts
+current_tree.txt
+vulture_output.txt
+security_report.json
+bug_fix_report.md
+ingestion.log
+*.log
+checkpoint.db*

@@ -1,0 +1,693 @@
+2026-02-21 20:45:36 | INFO | ingestion.storage | Deleted batch of 16 nodes
+2026-02-21 20:45:36 | INFO | scripts.ingest_all | Starting bulk ingestion {"root": "data/raw"}
+2026-02-21 20:45:42 | INFO | chromadb.telemetry.product.posthog | Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2026-02-21 20:45:47 | INFO | core.models | Batch embedding succeeded {"count": 100}
+2026-02-21 20:45:47 | INFO | core.models | Batch embedding succeeded {"count": 100}
+2026-02-21 20:45:49 | INFO | core.models | Batch embedding succeeded {"count": 100}
+2026-02-21 20:45:52 | INFO | core.models | Batch embedding succeeded {"count": 100}
+2026-02-21 20:45:53 | INFO | core.models | Batch embedding succeeded {"count": 100}
+2026-02-21 20:45:54 | INFO | core.models | Batch embedding succeeded {"count": 79}
+2026-02-21 20:45:54 | INFO | ingestion.storage | Ingestion completed {"successful_batches": 6, "total_batches": 6, "duration_s": 12.43}
+2026-02-21 20:45:54 | INFO | ingestion.checkpoint | CheckpointManager initialized: data/ingestion/checkpoint.db
+2026-02-21 20:45:54 | INFO | ingestion.checkpoint | New ingestion run #1: 579 chunks, hash=693f12dd4fef0509...
+2026-02-21 20:45:54 | INFO | ingestion.storage | Starting graph schema audit and preparation
+2026-02-21 20:45:54 | INFO | ingestion.storage | Current graph state: 0 nodes, 0 relationships
+2026-02-21 20:45:55 | INFO | ingestion.storage | Schema audit complete
+✅ LangSmith tracing enabled - Project: veritas-graph-rag
+============================================================
+🚀 Veritas Production Ingestion Pipeline
+   📂 Source: data/raw
+   🧠 LLM Priority: Groq → Gemini → Ollama qwen2.5:7b
+   📦 Neo4j batch size: 50
+   🔑 Groq keys: 4
+   🔑 Gemini keys: 4
+============================================================
+
+⚠️  Clearing existing Neo4j graph data...
+🧹 Wiping Neo4j AuraDB graph completely...
+✅ Graph wiped successfully.
+🔄 Resetting checkpoint database...
+
+📄 Loading and chunking documents...
+   ✅ sample_10k.pdf: 579 chunks
+
+📊 Total chunks: 579
+
+📊 Total chunks: 579
+
+--- 📦 VECTORS: Ingesting into ChromaDB ---
+🔌 Connecting to ChromaDB Collection: veritas-financial-index
+🧠 Using OLLAMA embeddings
+🚀 Starting PARALLEL ingestion of 579 chunks (6 batches)...
+   📚 Collections: {'raw'}
+   📑 Sections found: 1 unique sections
+   ✅ Batch 5/6 uploaded (Parallel).
+   ✅ Batch 2/6 uploaded (Parallel).
+   ✅ Batch 1/6 uploaded (Parallel).
+   ✅ Batch 4/6 uploaded (Parallel).
+   ✅ Batch 3/6 uploaded (Parallel).
+   ✅ Batch 6/6 uploaded (Parallel).
+🎉 Ingestion Complete: 6/6 batches in 12.4s
+--- ✅ Vector ingestion done in 12.6s ---
+
+--- 🕸️ GRAPH: Ingesting into Neo4j AuraDB ---
+   📊 Pre-audit state: 0 nodes, 0 relationships
+   ✅ Schema audit complete. Constraints and indexes enforced.
+--- 🕸️ GRAPH: Processing 579 remaining chunks (of 579 total) to AuraDB ---
+   [1/579] (0.2%) Processing... 2026-02-21 20:45:56 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 7N 5E [groq/llama-3.3-70b-versatile] (1031ms)
+   [2/579] (0.3%) Processing... 2026-02-21 20:45:57 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:45:57 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 20:45:58 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #2
+✅ 3N 2E [groq/llama-3.3-70b-versatile] (1804ms)
+   [3/579] (0.5%) Processing... 2026-02-21 20:45:58 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:45:58 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 20:46:00 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #3
+✅ 2N 1E [groq/llama-3.3-70b-versatile] (1840ms)
+   [4/579] (0.7%) Processing... 2026-02-21 20:46:01 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 5N 3E [groq/llama-3.3-70b-versatile] (510ms)
+   [5/579] (0.9%) Processing... 2026-02-21 20:46:01 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 2N 1E [groq/llama-3.3-70b-versatile] (392ms)
+   [6/579] (1.0%) Processing... 2026-02-21 20:46:02 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 3N 2E [groq/llama-3.3-70b-versatile] (523ms)
+   [7/579] (1.2%) Processing... 2026-02-21 20:46:03 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 20N 16E [groq/llama-3.3-70b-versatile] (1768ms)
+   [8/579] (1.4%) Processing... 2026-02-21 20:46:04 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 2N 1E [groq/llama-3.3-70b-versatile] (485ms)
+   [9/579] (1.6%) Processing... 2026-02-21 20:46:04 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 1N 0E [groq/llama-3.3-70b-versatile] (495ms)
+   [10/579] (1.7%) Processing... 2026-02-21 20:46:05 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 2N 1E [groq/llama-3.3-70b-versatile] (507ms)
+   [11/579] (1.9%) Processing... 2026-02-21 20:46:05 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 1N 0E [groq/llama-3.3-70b-versatile] (226ms)
+   [12/579] (2.1%) Processing... 2026-02-21 20:46:06 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 8N 7E [groq/llama-3.3-70b-versatile] (763ms)
+   [13/579] (2.2%) Processing... 2026-02-21 20:46:07 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 7N 6E [groq/llama-3.3-70b-versatile] (766ms)
+   [14/579] (2.4%) Processing... 2026-02-21 20:46:08 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 8N 7E [groq/llama-3.3-70b-versatile] (819ms)
+   [15/579] (2.6%) Processing... 2026-02-21 20:46:10 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 8N 7E [groq/llama-3.3-70b-versatile] (913ms)
+   [16/579] (2.8%) Processing... 2026-02-21 20:46:10 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:46:10 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 20:46:12 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #4
+✅ 6N 5E [groq/llama-3.3-70b-versatile] (1899ms)
+   [17/579] (2.9%) Processing... 2026-02-21 20:46:12 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 5N 5E [groq/llama-3.3-70b-versatile] (668ms)
+   [18/579] (3.1%) Processing... 2026-02-21 20:46:13 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 10N 9E [groq/llama-3.3-70b-versatile] (1020ms)
+   [19/579] (3.3%) Processing... 2026-02-21 20:46:14 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 8N 9E [groq/llama-3.3-70b-versatile] (883ms)
+   [20/579] (3.5%) Processing... 2026-02-21 20:46:15 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 5N 5E [groq/llama-3.3-70b-versatile] (595ms)
+   [21/579] (3.6%) Processing... 2026-02-21 20:46:16 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 6N 5E [groq/llama-3.3-70b-versatile] (693ms)
+   [22/579] (3.8%) Processing... 2026-02-21 20:46:17 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 7N 10E [groq/llama-3.3-70b-versatile] (971ms)
+   [23/579] (4.0%) Processing... 2026-02-21 20:46:19 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 7N 8E [groq/llama-3.3-70b-versatile] (953ms)
+   [24/579] (4.1%) Processing... 2026-02-21 20:46:19 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 5N 4E [groq/llama-3.3-70b-versatile] (709ms)
+   [25/579] (4.3%) Processing... 2026-02-21 20:46:20 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 8N 7E [groq/llama-3.3-70b-versatile] (974ms)
+   [26/579] (4.5%) Processing... 2026-02-21 20:46:21 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 4N 3E [groq/llama-3.3-70b-versatile] (548ms)
+   [27/579] (4.7%) Processing... 2026-02-21 20:46:22 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 6N 6E [groq/llama-3.3-70b-versatile] (802ms)
+   [28/579] (4.8%) Processing... 2026-02-21 20:46:23 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 6N 5E [groq/llama-3.3-70b-versatile] (908ms)
+   [29/579] (5.0%) Processing... 2026-02-21 20:46:24 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 5N 4E [groq/llama-3.3-70b-versatile] (551ms)
+   [30/579] (5.2%) Processing... 2026-02-21 20:46:25 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 6N 5E [groq/llama-3.3-70b-versatile] (889ms)
+   [31/579] (5.4%) Processing... 2026-02-21 20:46:26 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 8N 7E [groq/llama-3.3-70b-versatile] (739ms)
+   [32/579] (5.5%) Processing... 2026-02-21 20:46:26 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 6N 5E [groq/llama-3.3-70b-versatile] (718ms)
+   [33/579] (5.7%) Processing... 2026-02-21 20:46:28 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 6N 4E [groq/llama-3.3-70b-versatile] (643ms)
+   [34/579] (5.9%) Processing... 2026-02-21 20:46:29 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 8N 7E [groq/llama-3.3-70b-versatile] (782ms)
+   [35/579] (6.0%) Processing... 2026-02-21 20:46:29 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:46:29 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 20:46:30 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:46:30 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 20:46:31 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:46:31 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 20:46:32 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:46:32 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 20:46:33 | WARNING | ingestion.extractor | All Groq keys exhausted (rate limited)
+2026-02-21 20:46:33 | INFO | google_genai.models | AFC is enabled with max remote calls: 10.
+2026-02-21 20:46:48 | INFO | httpx | HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #1
+🔄 Switched to Groq API key #2
+🔄 Switched to Groq API key #3
+🔄 Switched to Groq API key #4
+✅ 11N 7E [gemini/models/gemini-2.5-flash] (19798ms)
+   [36/579] (6.2%) Processing... 2026-02-21 20:46:50 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 12N 11E [groq/llama-3.3-70b-versatile] (989ms)
+   [37/579] (6.4%) Processing... 2026-02-21 20:46:51 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 6N 6E [groq/llama-3.3-70b-versatile] (697ms)
+   [38/579] (6.6%) Processing... 2026-02-21 20:46:51 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:46:51 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 20:46:52 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:46:52 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 20:46:53 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:46:53 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 20:46:54 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:46:54 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 20:46:55 | WARNING | ingestion.extractor | All Groq keys exhausted (rate limited)
+2026-02-21 20:46:55 | INFO | google_genai.models | AFC is enabled with max remote calls: 10.
+2026-02-21 20:47:11 | INFO | httpx | HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #1
+🔄 Switched to Groq API key #2
+🔄 Switched to Groq API key #3
+🔄 Switched to Groq API key #4
+✅ 13N 10E [gemini/models/gemini-2.5-flash] (20017ms)
+   [39/579] (6.7%) Processing... 2026-02-21 20:47:11 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:47:11 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 20:47:12 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:47:12 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 20:47:13 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:47:13 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 20:47:14 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:47:14 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 20:47:15 | WARNING | ingestion.extractor | All Groq keys exhausted (rate limited)
+2026-02-21 20:47:15 | INFO | google_genai.models | AFC is enabled with max remote calls: 10.
+2026-02-21 20:47:15 | INFO | httpx | HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:47:15 | WARNING | ingestion.extractor | Gemini rate limit (key #2). Wait 45s. Circuit: closed
+2026-02-21 20:48:01 | INFO | google_genai.models | AFC is enabled with max remote calls: 10.
+2026-02-21 20:48:21 | INFO | httpx | HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #1
+🔄 Switched to Groq API key #2
+🔄 Switched to Groq API key #3
+🔄 Switched to Groq API key #4
+🔄 Switched to Gemini API key #2
+✅ 12N 9E [gemini/models/gemini-2.5-flash] (69772ms)
+   [40/579] (6.9%) Processing... 2026-02-21 20:48:21 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:48:21 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 20:48:23 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:48:23 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 20:48:24 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:48:24 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 20:48:25 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:48:25 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 20:48:26 | WARNING | ingestion.extractor | All Groq keys exhausted (rate limited)
+2026-02-21 20:48:26 | INFO | google_genai.models | AFC is enabled with max remote calls: 10.
+2026-02-21 20:48:41 | INFO | httpx | HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #1
+🔄 Switched to Groq API key #2
+🔄 Switched to Groq API key #3
+🔄 Switched to Groq API key #4
+✅ 13N 11E [gemini/models/gemini-2.5-flash] (19727ms)
+   [41/579] (7.1%) Processing... 2026-02-21 20:48:42 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:48:42 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 20:48:43 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:48:43 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 20:48:44 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:48:44 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 20:48:45 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:48:45 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 20:48:46 | WARNING | ingestion.extractor | All Groq keys exhausted (rate limited)
+2026-02-21 20:48:46 | INFO | google_genai.models | AFC is enabled with max remote calls: 10.
+2026-02-21 20:48:59 | INFO | httpx | HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #1
+🔄 Switched to Groq API key #2
+🔄 Switched to Groq API key #3
+🔄 Switched to Groq API key #4
+✅ 11N 10E [gemini/models/gemini-2.5-flash] (17358ms)
+   [42/579] (7.3%) Processing... 2026-02-21 20:48:59 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:48:59 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 20:49:00 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:49:00 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 20:49:01 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:49:01 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 20:49:03 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:49:03 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 20:49:04 | WARNING | ingestion.extractor | All Groq keys exhausted (rate limited)
+2026-02-21 20:49:04 | INFO | google_genai.models | AFC is enabled with max remote calls: 10.
+2026-02-21 20:49:19 | INFO | httpx | HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #1
+🔄 Switched to Groq API key #2
+🔄 Switched to Groq API key #3
+🔄 Switched to Groq API key #4
+✅ 14N 10E [gemini/models/gemini-2.5-flash] (19791ms)
+   [43/579] (7.4%) Processing... 2026-02-21 20:49:19 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:49:19 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 20:49:20 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:49:20 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 20:49:21 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:49:21 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 20:49:23 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:49:23 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 20:49:24 | WARNING | ingestion.extractor | All Groq keys exhausted (rate limited)
+2026-02-21 20:49:24 | INFO | google_genai.models | AFC is enabled with max remote calls: 10.
+2026-02-21 20:49:38 | INFO | httpx | HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #1
+🔄 Switched to Groq API key #2
+🔄 Switched to Groq API key #3
+🔄 Switched to Groq API key #4
+✅ 17N 18E [gemini/models/gemini-2.5-flash] (18730ms)
+   [44/579] (7.6%) Processing... 2026-02-21 20:49:38 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:49:38 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 20:49:39 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:49:39 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 20:49:40 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:49:40 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 20:49:41 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:49:41 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 20:49:42 | WARNING | ingestion.extractor | All Groq keys exhausted (rate limited)
+2026-02-21 20:49:42 | INFO | google_genai.models | AFC is enabled with max remote calls: 10.
+2026-02-21 20:49:59 | INFO | httpx | HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #1
+🔄 Switched to Groq API key #2
+🔄 Switched to Groq API key #3
+🔄 Switched to Groq API key #4
+✅ 10N 16E [gemini/models/gemini-2.5-flash] (21082ms)
+   [45/579] (7.8%) Processing... 2026-02-21 20:50:02 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:50:02 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 20:50:03 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:50:03 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 20:50:04 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:50:04 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 20:50:05 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:50:05 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 20:50:06 | WARNING | ingestion.extractor | All Groq keys exhausted (rate limited)
+2026-02-21 20:50:06 | INFO | google_genai.models | AFC is enabled with max remote calls: 10.
+2026-02-21 20:50:22 | INFO | httpx | HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #1
+🔄 Switched to Groq API key #2
+🔄 Switched to Groq API key #3
+🔄 Switched to Groq API key #4
+✅ 25N 15E [gemini/models/gemini-2.5-flash] (21072ms)
+   [46/579] (7.9%) Processing... 2026-02-21 20:50:23 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:50:23 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 20:50:24 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:50:24 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 20:50:25 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #1
+🔄 Switched to Groq API key #2
+✅ 1N 0E [groq/llama-3.3-70b-versatile] (2653ms)
+   [47/579] (8.1%) Processing... 2026-02-21 20:50:25 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:50:25 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 20:50:26 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:50:26 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 20:50:28 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:50:28 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 20:50:29 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:50:29 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 20:50:30 | WARNING | ingestion.extractor | All Groq keys exhausted (rate limited)
+2026-02-21 20:50:30 | INFO | google_genai.models | AFC is enabled with max remote calls: 10.
+2026-02-21 20:50:38 | INFO | httpx | HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #3
+🔄 Switched to Groq API key #4
+🔄 Switched to Groq API key #1
+🔄 Switched to Groq API key #2
+✅ 6N 6E [gemini/models/gemini-2.5-flash] (13102ms)
+   [48/579] (8.3%) Processing... 2026-02-21 20:50:38 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:50:38 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 20:50:40 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:50:40 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 20:50:41 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:50:41 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 20:50:42 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:50:42 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 20:50:43 | WARNING | ingestion.extractor | All Groq keys exhausted (rate limited)
+2026-02-21 20:50:43 | INFO | google_genai.models | AFC is enabled with max remote calls: 10.
+2026-02-21 20:50:58 | INFO | httpx | HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #3
+🔄 Switched to Groq API key #4
+🔄 Switched to Groq API key #1
+🔄 Switched to Groq API key #2
+✅ 21N 21E [gemini/models/gemini-2.5-flash] (19867ms)
+   [49/579] (8.5%) Processing... 2026-02-21 20:50:59 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:50:59 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 20:51:00 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:51:00 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 20:51:01 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:51:01 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 20:51:02 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:51:02 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 20:51:03 | WARNING | ingestion.extractor | All Groq keys exhausted (rate limited)
+2026-02-21 20:51:03 | INFO | google_genai.models | AFC is enabled with max remote calls: 10.
+2026-02-21 20:51:14 | INFO | httpx | HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #3
+🔄 Switched to Groq API key #4
+🔄 Switched to Groq API key #1
+🔄 Switched to Groq API key #2
+✅ 10N 10E [gemini/models/gemini-2.5-flash] (14796ms)
+   [50/579] (8.6%) Processing... 2026-02-21 20:51:14 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:51:14 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 20:51:15 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:51:15 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 20:51:17 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:51:17 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 20:51:18 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:51:18 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 20:51:19 | WARNING | ingestion.extractor | All Groq keys exhausted (rate limited)
+2026-02-21 20:51:19 | INFO | google_genai.models | AFC is enabled with max remote calls: 10.
+2026-02-21 20:51:37 | INFO | httpx | HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #3
+🔄 Switched to Groq API key #4
+🔄 Switched to Groq API key #1
+🔄 Switched to Groq API key #2
+✅ 15N 21E [gemini/models/gemini-2.5-flash] (22960ms)
+   [51/579] (8.8%) Processing... 2026-02-21 20:51:38 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:51:38 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 20:51:39 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:51:39 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 20:51:40 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:51:40 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 20:51:42 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:51:42 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 20:51:43 | WARNING | ingestion.extractor | All Groq keys exhausted (rate limited)
+2026-02-21 20:51:43 | INFO | google_genai.models | AFC is enabled with max remote calls: 10.
+2026-02-21 20:52:01 | INFO | httpx | HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #3
+🔄 Switched to Groq API key #4
+🔄 Switched to Groq API key #1
+🔄 Switched to Groq API key #2
+✅ 14N 15E [gemini/models/gemini-2.5-flash] (23014ms)
+   [52/579] (9.0%) Processing... 2026-02-21 20:52:01 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:52:01 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 20:52:03 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #3
+✅ 2N 1E [groq/llama-3.3-70b-versatile] (1429ms)
+   [53/579] (9.2%) Processing... 2026-02-21 20:52:03 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:52:03 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 20:52:04 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:52:04 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 20:52:05 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:52:05 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 20:52:06 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:52:06 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 20:52:07 | WARNING | ingestion.extractor | All Groq keys exhausted (rate limited)
+2026-02-21 20:52:07 | INFO | google_genai.models | AFC is enabled with max remote calls: 10.
+2026-02-21 20:52:18 | INFO | httpx | HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #4
+🔄 Switched to Groq API key #1
+🔄 Switched to Groq API key #2
+🔄 Switched to Groq API key #3
+✅ 20N 23E [gemini/models/gemini-2.5-flash] (15952ms)
+   [54/579] (9.3%) Processing... 2026-02-21 20:52:19 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:52:19 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 20:52:20 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:52:20 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 20:52:21 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:52:21 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 20:52:22 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:52:22 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 20:52:23 | WARNING | ingestion.extractor | All Groq keys exhausted (rate limited)
+2026-02-21 20:52:23 | INFO | google_genai.models | AFC is enabled with max remote calls: 10.
+2026-02-21 20:52:40 | INFO | httpx | HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #4
+🔄 Switched to Groq API key #1
+🔄 Switched to Groq API key #2
+🔄 Switched to Groq API key #3
+✅ 13N 15E [gemini/models/gemini-2.5-flash] (21574ms)
+   [55/579] (9.5%) Processing... 2026-02-21 20:52:41 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:52:41 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 20:52:42 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:52:42 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 20:52:43 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:52:43 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 20:52:44 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:52:44 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 20:52:45 | WARNING | ingestion.extractor | All Groq keys exhausted (rate limited)
+2026-02-21 20:52:45 | INFO | google_genai.models | AFC is enabled with max remote calls: 10.
+2026-02-21 20:52:58 | INFO | httpx | HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #4
+🔄 Switched to Groq API key #1
+🔄 Switched to Groq API key #2
+🔄 Switched to Groq API key #3
+✅ 15N 19E [gemini/models/gemini-2.5-flash] (17151ms)
+   [56/579] (9.7%) Processing... 2026-02-21 20:52:59 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:52:59 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 20:53:00 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:53:00 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 20:53:01 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:53:01 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 20:53:02 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:53:02 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 20:53:03 | WARNING | ingestion.extractor | All Groq keys exhausted (rate limited)
+2026-02-21 20:53:03 | INFO | google_genai.models | AFC is enabled with max remote calls: 10.
+2026-02-21 20:53:23 | INFO | httpx | HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #4
+🔄 Switched to Groq API key #1
+🔄 Switched to Groq API key #2
+🔄 Switched to Groq API key #3
+✅ 22N 18E [gemini/models/gemini-2.5-flash] (24046ms)
+   [57/579] (9.8%) Processing... 2026-02-21 20:53:23 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:53:23 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 20:53:24 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #4
+✅ 1N 0E [groq/llama-3.3-70b-versatile] (1566ms)
+   [58/579] (10.0%) Processing... 2026-02-21 20:53:24 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:53:24 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 20:53:26 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:53:26 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 20:53:27 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:53:27 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 20:53:28 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:53:28 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 20:53:29 | WARNING | ingestion.extractor | All Groq keys exhausted (rate limited)
+2026-02-21 20:53:29 | INFO | google_genai.models | AFC is enabled with max remote calls: 10.
+2026-02-21 20:53:40 | INFO | httpx | HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #1
+🔄 Switched to Groq API key #2
+🔄 Switched to Groq API key #3
+🔄 Switched to Groq API key #4
+✅ 11N 11E [gemini/models/gemini-2.5-flash] (15621ms)
+   [59/579] (10.2%) Processing... 2026-02-21 20:53:40 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:53:40 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 20:53:41 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:53:41 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 20:53:42 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:53:42 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 20:53:43 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:53:43 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 20:53:44 | WARNING | ingestion.extractor | All Groq keys exhausted (rate limited)
+2026-02-21 20:53:45 | INFO | google_genai.models | AFC is enabled with max remote calls: 10.
+2026-02-21 20:53:55 | INFO | httpx | HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #1
+🔄 Switched to Groq API key #2
+🔄 Switched to Groq API key #3
+🔄 Switched to Groq API key #4
+✅ 9N 9E [gemini/models/gemini-2.5-flash] (14927ms)
+   [60/579] (10.4%) Processing... 2026-02-21 20:53:56 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:53:56 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 20:53:58 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:53:58 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 20:53:59 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:53:59 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 20:54:00 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:54:00 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 20:54:01 | WARNING | ingestion.extractor | All Groq keys exhausted (rate limited)
+2026-02-21 20:54:01 | INFO | google_genai.models | AFC is enabled with max remote calls: 10.
+2026-02-21 20:54:15 | INFO | httpx | HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #1
+🔄 Switched to Groq API key #2
+🔄 Switched to Groq API key #3
+🔄 Switched to Groq API key #4
+✅ 13N 13E [gemini/models/gemini-2.5-flash] (19156ms)
+   [61/579] (10.5%) Processing... 2026-02-21 20:54:16 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:54:16 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 20:54:18 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #1
+✅ 9N 8E [groq/llama-3.3-70b-versatile] (1958ms)
+   [62/579] (10.7%) Processing... 2026-02-21 20:54:18 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:54:18 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 20:54:19 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:54:19 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 20:54:20 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:54:20 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 20:54:22 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:54:22 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 20:54:23 | WARNING | ingestion.extractor | All Groq keys exhausted (rate limited)
+2026-02-21 20:54:23 | INFO | google_genai.models | AFC is enabled with max remote calls: 10.
+2026-02-21 20:54:31 | INFO | httpx | HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #2
+🔄 Switched to Groq API key #3
+🔄 Switched to Groq API key #4
+🔄 Switched to Groq API key #1
+✅ 12N 11E [gemini/models/gemini-2.5-flash] (12885ms)
+   [63/579] (10.9%) Processing... 2026-02-21 20:54:31 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:54:31 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 20:54:32 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:54:32 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 20:54:33 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:54:33 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 20:54:35 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:54:35 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 20:54:36 | WARNING | ingestion.extractor | All Groq keys exhausted (rate limited)
+2026-02-21 20:54:36 | INFO | google_genai.models | AFC is enabled with max remote calls: 10.
+2026-02-21 20:54:36 | INFO | httpx | HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:54:36 | WARNING | ingestion.extractor | Gemini rate limit (key #3). Wait 24s. Circuit: closed
+2026-02-21 20:55:00 | INFO | google_genai.models | AFC is enabled with max remote calls: 10.
+2026-02-21 20:55:00 | INFO | httpx | HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:55:00 | WARNING | ingestion.extractor | Gemini rate limit (key #4). Wait 60s. Circuit: closed
+2026-02-21 20:56:00 | INFO | google_genai.models | AFC is enabled with max remote calls: 10.
+2026-02-21 20:56:00 | INFO | httpx | HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:56:00 | WARNING | ingestion.extractor | Circuit OPEN — 3 consecutive failures. Routing to Ollama for 120s.
+2026-02-21 20:56:00 | WARNING | ingestion.extractor | Gemini rate limit (key #1). Wait 60s. Circuit: open
+2026-02-21 20:57:00 | INFO | google_genai.models | AFC is enabled with max remote calls: 10.
+2026-02-21 20:57:01 | INFO | httpx | HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:57:01 | WARNING | ingestion.extractor | Circuit OPEN — 4 consecutive failures. Routing to Ollama for 120s.
+2026-02-21 20:57:01 | WARNING | ingestion.extractor | Gemini rate limit (key #2). Wait 60s. Circuit: open
+🔄 Switched to Groq API key #2
+🔄 Switched to Groq API key #3
+🔄 Switched to Groq API key #4
+🔄 Switched to Groq API key #1
+🔄 Switched to Gemini API key #3
+🔄 Switched to Gemini API key #4
+🔄 Switched to Gemini API key #1
+🔄 Switched to Gemini API key #2
+✅ 6N 5E [ollama/qwen2.5:7b] (229572ms)
+   [64/579] (11.1%) Processing... 2026-02-21 20:58:21 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:58:21 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 20:58:22 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:58:22 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 20:58:23 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:58:23 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 20:58:24 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:58:24 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 20:58:25 | WARNING | ingestion.extractor | All Groq keys exhausted (rate limited)
+🔄 Switched to Groq API key #2
+🔄 Switched to Groq API key #3
+🔄 Switched to Groq API key #4
+🔄 Switched to Groq API key #1
+✅ 2N 1E [ollama/qwen2.5:7b] (12284ms)
+   [65/579] (11.2%) Processing... 2026-02-21 20:58:33 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:58:33 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 20:58:34 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:58:34 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 20:58:35 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:58:35 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 20:58:36 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:58:36 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 20:58:37 | WARNING | ingestion.extractor | All Groq keys exhausted (rate limited)
+🔄 Switched to Groq API key #2
+🔄 Switched to Groq API key #3
+🔄 Switched to Groq API key #4
+🔄 Switched to Groq API key #1
+✅ 2N 1E [ollama/qwen2.5:7b] (9329ms)
+   [66/579] (11.4%) Processing... 2026-02-21 20:58:42 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:58:42 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 20:58:44 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #2
+✅ 5N 4E [groq/llama-3.3-70b-versatile] (1774ms)
+   [67/579] (11.6%) Processing... 2026-02-21 20:58:44 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:58:44 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 20:58:45 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:58:45 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 20:58:46 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:58:46 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 20:58:48 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:58:48 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 20:58:49 | WARNING | ingestion.extractor | All Groq keys exhausted (rate limited)
+🔄 Switched to Groq API key #3
+🔄 Switched to Groq API key #4
+🔄 Switched to Groq API key #1
+🔄 Switched to Groq API key #2
+✅ 6N 5E [ollama/qwen2.5:7b] (17400ms)
+   [68/579] (11.7%) Processing... 2026-02-21 20:59:02 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:59:02 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 20:59:03 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #3
+✅ 5N 4E [groq/llama-3.3-70b-versatile] (1842ms)
+   [69/579] (11.9%) Processing... 2026-02-21 20:59:05 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:59:05 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 20:59:06 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:59:06 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 20:59:07 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:59:07 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 20:59:09 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:59:09 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 20:59:10 | WARNING | ingestion.extractor | All Groq keys exhausted (rate limited)
+2026-02-21 20:59:10 | INFO | ingestion.extractor | Circuit HALF_OPEN — probing primary API
+2026-02-21 20:59:10 | INFO | google_genai.models | AFC is enabled with max remote calls: 10.
+2026-02-21 20:59:10 | INFO | httpx | HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:59:10 | WARNING | ingestion.extractor | Circuit OPEN — 5 consecutive failures. Routing to Ollama for 120s.
+2026-02-21 20:59:10 | WARNING | ingestion.extractor | Gemini rate limit (key #3). Wait 50s. Circuit: open
+2026-02-21 21:00:00 | INFO | google_genai.models | AFC is enabled with max remote calls: 10.
+2026-02-21 21:00:00 | INFO | httpx | HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 429 Too Many Requests"
+2026-02-21 21:00:00 | WARNING | ingestion.extractor | Circuit OPEN — 6 consecutive failures. Routing to Ollama for 120s.
+2026-02-21 21:00:00 | WARNING | ingestion.extractor | Gemini rate limit (key #4). Wait 60s. Circuit: open
+2026-02-21 21:01:00 | INFO | google_genai.models | AFC is enabled with max remote calls: 10.
+2026-02-21 21:01:00 | INFO | httpx | HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 429 Too Many Requests"
+2026-02-21 21:01:00 | WARNING | ingestion.extractor | Circuit OPEN — 7 consecutive failures. Routing to Ollama for 120s.
+2026-02-21 21:01:00 | WARNING | ingestion.extractor | Gemini rate limit (key #1). Wait 60s. Circuit: open
+2026-02-21 21:02:00 | INFO | google_genai.models | AFC is enabled with max remote calls: 10.
+2026-02-21 21:02:01 | INFO | httpx | HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 429 Too Many Requests"
+2026-02-21 21:02:01 | WARNING | ingestion.extractor | Circuit OPEN — 8 consecutive failures. Routing to Ollama for 120s.
+2026-02-21 21:02:01 | WARNING | ingestion.extractor | Gemini rate limit (key #2). Wait 59s. Circuit: open
+🔄 Switched to Groq API key #4
+🔄 Switched to Groq API key #1
+🔄 Switched to Groq API key #2
+🔄 Switched to Groq API key #3
+🔄 Switched to Gemini API key #3
+🔄 Switched to Gemini API key #4
+🔄 Switched to Gemini API key #1
+🔄 Switched to Gemini API key #2
+✅ 3N 2E [ollama/qwen2.5:7b] (244998ms)
+   [70/579] (12.1%) Processing... 2026-02-21 21:03:12 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 21:03:12 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 21:03:13 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #4
+✅ 2N 1E [groq/llama-3.3-70b-versatile] (1635ms)
+   [71/579] (12.3%) Processing... 2026-02-21 21:03:14 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 21:03:14 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 21:03:15 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #1
+✅ 6N 5E [groq/llama-3.3-70b-versatile] (1875ms)
+   [72/579] (12.4%) Processing... 2026-02-21 21:03:15 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 21:03:15 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 21:03:17 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 21:03:17 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 21:03:18 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 21:03:18 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 21:03:19 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 21:03:19 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 21:03:20 | WARNING | ingestion.extractor | All Groq keys exhausted (rate limited)
+2026-02-21 21:03:41 | WARNING | ingestion.extractor | JSON decode failed: Expecting ':' delimiter: line 5 column 17 (char 122)
+2026-02-21 21:03:41 | INFO | ingestion.extractor | Primary Ollama failed, trying fallback: phi3.5:3.8b
+🔄 Switched to Groq API key #2
+🔄 Switched to Groq API key #3
+🔄 Switched to Groq API key #4
+🔄 Switched to Groq API key #1
+✅ 2N 1E [ollama/phi3.5:3.8b] (35441ms)
+   [73/579] (12.6%) Processing... 2026-02-21 21:03:51 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 21:03:51 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 21:03:52 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 21:03:52 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 21:03:53 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 21:03:53 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 21:03:54 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 21:03:54 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 21:03:55 | WARNING | ingestion.extractor | All Groq keys exhausted (rate limited)
+🔄 Switched to Groq API key #2
+🔄 Switched to Groq API key #3
+🔄 Switched to Groq API key #4
+🔄 Switched to Groq API key #1
+✅ 4N 3E [ollama/qwen2.5:7b] (15640ms)
+   [74/579] (12.8%) Processing... 2026-02-21 21:04:07 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 21:04:07 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 21:04:08 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 21:04:08 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 21:04:09 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 21:04:09 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 21:04:10 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 21:04:10 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 21:04:11 | WARNING | ingestion.extractor | All Groq keys exhausted (rate limited)
+2026-02-21 21:04:11 | INFO | ingestion.extractor | Circuit HALF_OPEN — probing primary API
+2026-02-21 21:04:11 | INFO | google_genai.models | AFC is enabled with max remote calls: 10.
+2026-02-21 21:04:11 | INFO | httpx | HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 429 Too Many Requests"
+2026-02-21 21:04:11 | WARNING | ingestion.extractor | Circuit OPEN — 9 consecutive failures. Routing to Ollama for 120s.
+2026-02-21 21:04:11 | WARNING | ingestion.extractor | Gemini rate limit (key #3). Wait 49s. Circuit: open
+2026-02-21 21:05:00 | INFO | google_genai.models | AFC is enabled with max remote calls: 10.
+2026-02-21 21:05:01 | INFO | httpx | HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 429 Too Many Requests"
+2026-02-21 21:05:01 | WARNING | ingestion.extractor | Circuit OPEN — 10 consecutive failures. Routing to Ollama for 120s.
+2026-02-21 21:05:01 | WARNING | ingestion.extractor | Gemini rate limit (key #4). Wait 60s. Circuit: open

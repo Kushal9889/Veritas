@@ -6,9 +6,13 @@ import re
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../")))
 
 from fastapi import FastAPI, HTTPException
-from fastapi.middleware.cors import CORSMiddleware  # <--- NEW IMPORT
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
-from src.orchestration.graph import build_graph
+from src.orchestration.workflow import build_graph
+from src.retrieval.search import warmup
+from src.core.telemetry import get_telemetry
+import json
 
 app = FastAPI(title="Veritas Financial Agent")
 
@@ -22,56 +26,85 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+telemetry = get_telemetry("api.server")
+
 print("--- 🧠 BUILDING AGENT BRAIN... ---")
 try:
+    telemetry.log_info("Initializing agent graph")
     agent_app = build_graph()
+    
+    telemetry.log_info("Warming up cross-encoder models")
+    warmup()
+    
     print("--- ✅ AGENT ACTIVE ---")
 except Exception as e:
+    telemetry.log_error("Agent failed to load", error=e)
     print(f"--- ⚠️ Agent failed to load: {e} ---")
     agent_app = None
 
 class ChatRequest(BaseModel):
     question: str
-    user_id: str = "default_user"
 
-class ChatResponse(BaseModel):
-    response: str
-    sources: list[str] = []
-
-@app.post("/chat", response_model=ChatResponse)
+@app.post("/chat")
 async def chat_endpoint(payload: ChatRequest):
-    print(f"--- 📨 API: received: {payload.question} ---")
+    telemetry.log_info("Incoming chat request", question=payload.question)
     
     if not agent_app:
         raise HTTPException(status_code=500, detail="Agent Brain is offline.")
     
-    try:
-        inputs = {"question": payload.question}
-        result = agent_app.invoke(inputs)
-        final_answer = result.get("generation", "No response.")
-        
-        # ELITE SOURCE EXTRACTION
-        # Extracts "(Source: file.pdf, Page 5)" from the text
-        raw_docs = result.get("documents", [])
-        clean_sources = []
-        
-        for doc in raw_docs:
-            match = re.search(r"\(Source:.*?, Page \d+\)", doc)
-            if match:
-                clean_sources.append(match.group(0))
-            else:
-                clean_sources.append("Source: 10-K Filing")
-
-        clean_sources = list(set(clean_sources))
-        
-        return {
-            "response": final_answer,
-            "sources": clean_sources
-        }
-        
-    except Exception as e:
-        print(f"❌ API Error: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+    async def generate_stream():
+        try:
+            import asyncio
+            from langchain_core.runnables import RunnableConfig
+            
+            # Use LangGraph for LangSmith tracing
+            full_response = ""
+            sources = []
+            
+            # Streaming LangGraph trace end-to-end
+            langsmith_config = RunnableConfig(
+                tags=["fastapi_chat", "production"], 
+                run_name="Veritas_Streaming_Chat"
+            )
+            
+            for chunk in agent_app.stream({"question": payload.question}, config=langsmith_config):
+                if "analyst" in chunk:
+                    # Extract sources from analyst node
+                    docs = chunk["analyst"].get("documents", [])
+                    for doc in docs:
+                        match = re.search(r"^\[[^\]]+\]", doc)
+                        if not match:
+                            match = re.search(r"\(Source:.*?, Page \d+\)", doc)
+                        if match:
+                            sources.append(match.group(0))
+                    
+                    # Send sources immediately
+                    yield f"data: {json.dumps({'type': 'sources', 'sources': list(set(sources))})}\n\n"
+                    await asyncio.sleep(0.01)
+                
+                if "writer" in chunk:
+                    # Get the generated response
+                    generation = chunk["writer"].get("generation", "")
+                    
+                    # Stream the new text
+                    if generation and generation != full_response:
+                        new_text = generation[len(full_response):]
+                        full_response = generation
+                        
+                        # Split into smaller chunks for smoother streaming
+                        for char in new_text:
+                            yield f"data: {json.dumps({'type': 'content', 'text': char})}\n\n"
+                            await asyncio.sleep(0.001)  # Very small delay for smooth streaming
+            
+            yield "data: [DONE]\n\n"
+            
+        except Exception as e:
+            print(f"❌ API Error: {e}")
+            import traceback
+            traceback.print_exc()
+            yield f"data: {json.dumps({'type': 'error', 'message': str(e)})}\n\n"
+    
+    return StreamingResponse(generate_stream(), media_type="text/event-stream")
 
 if __name__ == "__main__":
     import uvicorn

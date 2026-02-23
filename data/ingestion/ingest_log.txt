@@ -1,0 +1,982 @@
+2026-02-21 20:30:53 | INFO | scripts.ingest_all | Starting bulk ingestion {"root": "data/raw"}
+2026-02-21 20:30:59 | INFO | chromadb.telemetry.product.posthog | Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2026-02-21 20:31:02 | INFO | core.models | Batch embedding succeeded {"count": 100}
+2026-02-21 20:31:04 | INFO | core.models | Batch embedding succeeded {"count": 100}
+2026-02-21 20:31:07 | INFO | core.models | Batch embedding succeeded {"count": 100}
+2026-02-21 20:31:07 | INFO | core.models | Batch embedding succeeded {"count": 100}
+2026-02-21 20:31:09 | INFO | core.models | Batch embedding succeeded {"count": 100}
+2026-02-21 20:31:11 | INFO | core.models | Batch embedding succeeded {"count": 79}
+2026-02-21 20:31:11 | INFO | ingestion.storage | Ingestion completed {"successful_batches": 6, "total_batches": 6, "duration_s": 11.36}
+2026-02-21 20:31:11 | INFO | ingestion.checkpoint | CheckpointManager initialized: data/ingestion/checkpoint.db
+2026-02-21 20:31:11 | INFO | ingestion.checkpoint | New ingestion run #1: 579 chunks, hash=693f12dd4fef0509...
+2026-02-21 20:31:11 | INFO | ingestion.storage | Starting graph schema audit and preparation
+2026-02-21 20:31:11 | INFO | ingestion.storage | Current graph state: 0 nodes, 0 relationships
+2026-02-21 20:31:12 | INFO | ingestion.storage | Schema audit complete
+✅ LangSmith tracing enabled - Project: veritas-graph-rag
+============================================================
+🚀 Veritas Production Ingestion Pipeline
+   📂 Source: data/raw
+   🧠 LLM Priority: Groq → Gemini → Ollama qwen2.5:7b
+   📦 Neo4j batch size: 50
+   🔑 Groq keys: 4
+   🔑 Gemini keys: 4
+============================================================
+
+⚠️  Clearing existing Neo4j graph data...
+🧹 Wiping Neo4j AuraDB graph completely...
+✅ Graph wiped successfully.
+🔄 Resetting checkpoint database...
+
+📄 Loading and chunking documents...
+   ✅ sample_10k.pdf: 579 chunks
+
+📊 Total chunks: 579
+
+📊 Total chunks: 579
+
+--- 📦 VECTORS: Ingesting into ChromaDB ---
+🔌 Connecting to ChromaDB Collection: veritas-financial-index
+🧠 Using OLLAMA embeddings
+🚀 Starting PARALLEL ingestion of 579 chunks (6 batches)...
+   📚 Collections: {'raw'}
+   📑 Sections found: 1 unique sections
+   ✅ Batch 4/6 uploaded (Parallel).
+   ✅ Batch 3/6 uploaded (Parallel).
+   ✅ Batch 1/6 uploaded (Parallel).
+   ✅ Batch 5/6 uploaded (Parallel).
+   ✅ Batch 2/6 uploaded (Parallel).
+   ✅ Batch 6/6 uploaded (Parallel).
+🎉 Ingestion Complete: 6/6 batches in 11.4s
+--- ✅ Vector ingestion done in 11.6s ---
+
+--- 🕸️ GRAPH: Ingesting into Neo4j AuraDB ---
+   📊 Pre-audit state: 0 nodes, 0 relationships
+   ✅ Schema audit complete. Constraints and indexes enforced.
+--- 🕸️ GRAPH: Processing 579 remaining chunks (of 579 total) to AuraDB ---
+   [1/579] (0.2%) Processing... 2026-02-21 20:31:12 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:31:12 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 20:31:14 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #2
+✅ 7N 5E [groq/llama-3.3-70b-versatile] (2058ms)
+   [2/579] (0.3%) Processing... 2026-02-21 20:31:14 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 3N 2E [groq/llama-3.3-70b-versatile] (415ms)
+   [3/579] (0.5%) Processing... 2026-02-21 20:31:15 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 7N 6E [groq/llama-3.3-70b-versatile] (753ms)
+   [4/579] (0.7%) Processing... 2026-02-21 20:31:16 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 6N 4E [groq/llama-3.3-70b-versatile] (577ms)
+   [5/579] (0.9%) Processing... 2026-02-21 20:31:16 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 2N 1E [groq/llama-3.3-70b-versatile] (445ms)
+   [6/579] (1.0%) Processing... 2026-02-21 20:31:17 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 3N 2E [groq/llama-3.3-70b-versatile] (624ms)
+   [7/579] (1.2%) Processing... 2026-02-21 20:31:18 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 20N 17E [groq/llama-3.3-70b-versatile] (1751ms)
+   [8/579] (1.4%) Processing... 2026-02-21 20:31:19 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 2N 1E [groq/llama-3.3-70b-versatile] (394ms)
+   [9/579] (1.6%) Processing... 2026-02-21 20:31:20 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 1N 0E [groq/llama-3.3-70b-versatile] (548ms)
+   [10/579] (1.7%) Processing... 2026-02-21 20:31:20 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 2N 1E [groq/llama-3.3-70b-versatile] (346ms)
+   [11/579] (1.9%) Processing... 2026-02-21 20:31:21 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 1N 0E [groq/llama-3.3-70b-versatile] (240ms)
+   [12/579] (2.1%) Processing... 2026-02-21 20:31:21 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 8N 7E [groq/llama-3.3-70b-versatile] (778ms)
+   [13/579] (2.2%) Processing... 2026-02-21 20:31:22 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 7N 6E [groq/llama-3.3-70b-versatile] (819ms)
+   [14/579] (2.4%) Processing... 2026-02-21 20:31:24 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 8N 7E [groq/llama-3.3-70b-versatile] (810ms)
+   [15/579] (2.6%) Processing... 2026-02-21 20:31:25 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 8N 7E [groq/llama-3.3-70b-versatile] (1015ms)
+   [16/579] (2.8%) Processing... 2026-02-21 20:31:25 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 7N 8E [groq/llama-3.3-70b-versatile] (743ms)
+   [17/579] (2.9%) Processing... 2026-02-21 20:31:26 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 5N 4E [groq/llama-3.3-70b-versatile] (512ms)
+   [18/579] (3.1%) Processing... 2026-02-21 20:31:27 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 9N 8E [groq/llama-3.3-70b-versatile] (740ms)
+   [19/579] (3.3%) Processing... 2026-02-21 20:31:28 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 7N 6E [groq/llama-3.3-70b-versatile] (673ms)
+   [20/579] (3.5%) Processing... 2026-02-21 20:31:28 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:31:28 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 20:31:30 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #3
+✅ 5N 5E [groq/llama-3.3-70b-versatile] (1817ms)
+   [21/579] (3.6%) Processing... 2026-02-21 20:31:30 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 6N 5E [groq/llama-3.3-70b-versatile] (563ms)
+   [22/579] (3.8%) Processing... 2026-02-21 20:31:32 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 7N 10E [groq/llama-3.3-70b-versatile] (796ms)
+   [23/579] (4.0%) Processing... 2026-02-21 20:31:32 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 7N 8E [groq/llama-3.3-70b-versatile] (693ms)
+   [24/579] (4.1%) Processing... 2026-02-21 20:31:33 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 7N 7E [groq/llama-3.3-70b-versatile] (795ms)
+   [25/579] (4.3%) Processing... 2026-02-21 20:31:34 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 8N 7E [groq/llama-3.3-70b-versatile] (887ms)
+   [26/579] (4.5%) Processing... 2026-02-21 20:31:35 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 4N 3E [groq/llama-3.3-70b-versatile] (489ms)
+   [27/579] (4.7%) Processing... 2026-02-21 20:31:36 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 6N 5E [groq/llama-3.3-70b-versatile] (592ms)
+   [28/579] (4.8%) Processing... 2026-02-21 20:31:36 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 6N 5E [groq/llama-3.3-70b-versatile] (609ms)
+   [29/579] (5.0%) Processing... 2026-02-21 20:31:37 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 5N 4E [groq/llama-3.3-70b-versatile] (556ms)
+   [30/579] (5.2%) Processing... 2026-02-21 20:31:38 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 6N 5E [groq/llama-3.3-70b-versatile] (663ms)
+   [31/579] (5.4%) Processing... 2026-02-21 20:31:39 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 7N 6E [groq/llama-3.3-70b-versatile] (735ms)
+   [32/579] (5.5%) Processing... 2026-02-21 20:31:40 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 6N 5E [groq/llama-3.3-70b-versatile] (664ms)
+   [33/579] (5.7%) Processing... 2026-02-21 20:31:41 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 6N 5E [groq/llama-3.3-70b-versatile] (798ms)
+   [34/579] (5.9%) Processing... 2026-02-21 20:31:41 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 8N 7E [groq/llama-3.3-70b-versatile] (675ms)
+   [35/579] (6.0%) Processing... 2026-02-21 20:31:43 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 6N 5E [groq/llama-3.3-70b-versatile] (580ms)
+   [36/579] (6.2%) Processing... 2026-02-21 20:31:44 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 12N 11E [groq/llama-3.3-70b-versatile] (1127ms)
+   [37/579] (6.4%) Processing... 2026-02-21 20:31:44 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 6N 8E [groq/llama-3.3-70b-versatile] (643ms)
+   [38/579] (6.6%) Processing... 2026-02-21 20:31:44 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:31:44 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 20:31:46 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #4
+✅ 6N 1E [groq/llama-3.3-70b-versatile] (1655ms)
+   [39/579] (6.7%) Processing... 2026-02-21 20:31:47 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 6N 5E [groq/llama-3.3-70b-versatile] (658ms)
+   [40/579] (6.9%) Processing... 2026-02-21 20:31:48 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 4N 3E [groq/llama-3.3-70b-versatile] (624ms)
+   [41/579] (7.1%) Processing... 2026-02-21 20:31:49 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 5N 4E [groq/llama-3.3-70b-versatile] (681ms)
+   [42/579] (7.3%) Processing... 2026-02-21 20:31:49 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 6N 5E [groq/llama-3.3-70b-versatile] (713ms)
+   [43/579] (7.4%) Processing... 2026-02-21 20:31:51 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 10N 8E [groq/llama-3.3-70b-versatile] (837ms)
+   [44/579] (7.6%) Processing... 2026-02-21 20:31:52 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 5N 4E [groq/llama-3.3-70b-versatile] (572ms)
+   [45/579] (7.8%) Processing... 2026-02-21 20:31:53 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 6N 7E [groq/llama-3.3-70b-versatile] (918ms)
+   [46/579] (7.9%) Processing... 2026-02-21 20:31:53 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 1N 0E [groq/llama-3.3-70b-versatile] (251ms)
+   [47/579] (8.1%) Processing... 2026-02-21 20:31:53 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 5N 5E [groq/llama-3.3-70b-versatile] (681ms)
+   [48/579] (8.3%) Processing... 2026-02-21 20:31:54 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 8N 9E [groq/llama-3.3-70b-versatile] (965ms)
+   [49/579] (8.5%) Processing... 2026-02-21 20:31:55 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 6N 5E [groq/llama-3.3-70b-versatile] (752ms)
+   [50/579] (8.6%) Processing... 2026-02-21 20:31:56 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 6N 5E [groq/llama-3.3-70b-versatile] (747ms)
+   [51/579] (8.8%) Processing... 2026-02-21 20:31:58 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 7N 6E [groq/llama-3.3-70b-versatile] (666ms)
+   [52/579] (9.0%) Processing... 2026-02-21 20:31:59 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 2N 1E [groq/llama-3.3-70b-versatile] (304ms)
+   [53/579] (9.2%) Processing... 2026-02-21 20:32:00 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 7N 6E [groq/llama-3.3-70b-versatile] (907ms)
+   [54/579] (9.3%) Processing... 2026-02-21 20:32:00 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 4N 3E [groq/llama-3.3-70b-versatile] (606ms)
+   [55/579] (9.5%) Processing... 2026-02-21 20:32:01 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 11N 10E [groq/llama-3.3-70b-versatile] (926ms)
+   [56/579] (9.7%) Processing... 2026-02-21 20:32:02 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 14N 11E [groq/llama-3.3-70b-versatile] (1203ms)
+   [57/579] (9.8%) Processing... 2026-02-21 20:32:02 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 1N 0E [groq/llama-3.3-70b-versatile] (211ms)
+   [58/579] (10.0%) Processing... 2026-02-21 20:32:03 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:32:03 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 20:32:04 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:32:04 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 20:32:05 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #1
+🔄 Switched to Groq API key #2
+✅ 4N 3E [groq/llama-3.3-70b-versatile] (2906ms)
+   [59/579] (10.2%) Processing... 2026-02-21 20:32:07 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 12N 11E [groq/llama-3.3-70b-versatile] (1105ms)
+   [60/579] (10.4%) Processing... 2026-02-21 20:32:08 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 7N 6E [groq/llama-3.3-70b-versatile] (684ms)
+   [61/579] (10.5%) Processing... 2026-02-21 20:32:09 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 9N 8E [groq/llama-3.3-70b-versatile] (825ms)
+   [62/579] (10.7%) Processing... 2026-02-21 20:32:10 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 9N 8E [groq/llama-3.3-70b-versatile] (715ms)
+   [63/579] (10.9%) Processing... 2026-02-21 20:32:11 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 10N 9E [groq/llama-3.3-70b-versatile] (1068ms)
+   [64/579] (11.1%) Processing... 2026-02-21 20:32:12 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 3N 3E [groq/llama-3.3-70b-versatile] (489ms)
+   [65/579] (11.2%) Processing... 2026-02-21 20:32:13 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 8N 7E [groq/llama-3.3-70b-versatile] (993ms)
+   [66/579] (11.4%) Processing... 2026-02-21 20:32:14 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 4N 4E [groq/llama-3.3-70b-versatile] (688ms)
+   [67/579] (11.6%) Processing... 2026-02-21 20:32:14 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 3N 2E [groq/llama-3.3-70b-versatile] (372ms)
+   [68/579] (11.7%) Processing... 2026-02-21 20:32:15 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 8N 7E [groq/llama-3.3-70b-versatile] (723ms)
+   [69/579] (11.9%) Processing... 2026-02-21 20:32:16 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:32:16 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 20:32:17 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #3
+✅ 4N 3E [groq/llama-3.3-70b-versatile] (1634ms)
+   [70/579] (12.1%) Processing... 2026-02-21 20:32:18 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 2N 1E [groq/llama-3.3-70b-versatile] (402ms)
+   [71/579] (12.3%) Processing... 2026-02-21 20:32:19 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 6N 5E [groq/llama-3.3-70b-versatile] (731ms)
+   [72/579] (12.4%) Processing... 2026-02-21 20:32:19 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 5N 6E [groq/llama-3.3-70b-versatile] (780ms)
+   [73/579] (12.6%) Processing... 2026-02-21 20:32:20 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 9N 8E [groq/llama-3.3-70b-versatile] (934ms)
+   [74/579] (12.8%) Processing... 2026-02-21 20:32:21 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 8N 7E [groq/llama-3.3-70b-versatile] (689ms)
+   [75/579] (13.0%) Processing... 2026-02-21 20:32:22 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 7N 6E [groq/llama-3.3-70b-versatile] (678ms)
+   [76/579] (13.1%) Processing... 2026-02-21 20:32:23 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 6N 6E [groq/llama-3.3-70b-versatile] (643ms)
+   [77/579] (13.3%) Processing... 2026-02-21 20:32:24 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 4N 3E [groq/llama-3.3-70b-versatile] (468ms)
+   [78/579] (13.5%) Processing... 2026-02-21 20:32:25 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 9N 12E [groq/llama-3.3-70b-versatile] (1051ms)
+   [79/579] (13.6%) Processing... 2026-02-21 20:32:26 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 5N 4E [groq/llama-3.3-70b-versatile] (548ms)
+   [80/579] (13.8%) Processing... 2026-02-21 20:32:26 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:32:26 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 20:32:28 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #4
+✅ 9N 10E [groq/llama-3.3-70b-versatile] (2070ms)
+   [81/579] (14.0%) Processing... 2026-02-21 20:32:28 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 4N 3E [groq/llama-3.3-70b-versatile] (427ms)
+   [82/579] (14.2%) Processing... 2026-02-21 20:32:29 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 6N 7E [groq/llama-3.3-70b-versatile] (684ms)
+   [83/579] (14.3%) Processing... 2026-02-21 20:32:30 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 6N 4E [groq/llama-3.3-70b-versatile] (627ms)
+   [84/579] (14.5%) Processing... 2026-02-21 20:32:31 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 5N 5E [groq/llama-3.3-70b-versatile] (740ms)
+   [85/579] (14.7%) Processing... 2026-02-21 20:32:32 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 13N 12E [groq/llama-3.3-70b-versatile] (1028ms)
+   [86/579] (14.9%) Processing... 2026-02-21 20:32:33 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 3N 2E [groq/llama-3.3-70b-versatile] (461ms)
+   [87/579] (15.0%) Processing... 2026-02-21 20:32:33 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:32:33 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 20:32:34 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:32:34 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 20:32:36 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #1
+🔄 Switched to Groq API key #2
+✅ 7N 6E [groq/llama-3.3-70b-versatile] (3182ms)
+   [88/579] (15.2%) Processing... 2026-02-21 20:32:38 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 7N 11E [groq/llama-3.3-70b-versatile] (963ms)
+   [89/579] (15.4%) Processing... 2026-02-21 20:32:38 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 8N 8E [groq/llama-3.3-70b-versatile] (824ms)
+   [90/579] (15.5%) Processing... 2026-02-21 20:32:39 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 6N 8E [groq/llama-3.3-70b-versatile] (657ms)
+   [91/579] (15.7%) Processing... 2026-02-21 20:32:41 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 10N 11E [groq/llama-3.3-70b-versatile] (942ms)
+   [92/579] (15.9%) Processing... 2026-02-21 20:32:42 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 13N 19E [groq/llama-3.3-70b-versatile] (1289ms)
+   [93/579] (16.1%) Processing... 2026-02-21 20:32:43 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:32:43 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 20:32:44 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #3
+✅ 3N 2E [groq/llama-3.3-70b-versatile] (1503ms)
+   [94/579] (16.2%) Processing... 2026-02-21 20:32:45 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 2N 1E [groq/llama-3.3-70b-versatile] (367ms)
+   [95/579] (16.4%) Processing... 2026-02-21 20:32:46 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 10N 10E [groq/llama-3.3-70b-versatile] (916ms)
+   [96/579] (16.6%) Processing... 2026-02-21 20:32:46 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 8N 8E [groq/llama-3.3-70b-versatile] (764ms)
+   [97/579] (16.8%) Processing... 2026-02-21 20:32:47 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 4N 3E [groq/llama-3.3-70b-versatile] (522ms)
+   [98/579] (16.9%) Processing... 2026-02-21 20:32:48 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 3N 2E [groq/llama-3.3-70b-versatile] (379ms)
+   [99/579] (17.1%) Processing... 2026-02-21 20:32:48 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:32:48 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 20:32:50 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #4
+✅ 8N 8E [groq/llama-3.3-70b-versatile] (2108ms)
+   [100/579] (17.3%) Processing... 2026-02-21 20:32:51 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 5N 7E [groq/llama-3.3-70b-versatile] (679ms)
+   [101/579] (17.4%) Processing... 2026-02-21 20:32:53 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 9N 7E [groq/llama-3.3-70b-versatile] (746ms)
+   [102/579] (17.6%) Processing... 2026-02-21 20:32:53 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 4N 5E [groq/llama-3.3-70b-versatile] (520ms)
+   [103/579] (17.8%) Processing... 2026-02-21 20:32:54 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 7N 6E [groq/llama-3.3-70b-versatile] (607ms)
+   [104/579] (18.0%) Processing... 2026-02-21 20:32:54 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:32:54 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 20:32:55 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:32:55 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 20:32:57 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #1
+🔄 Switched to Groq API key #2
+✅ 5N 5E [groq/llama-3.3-70b-versatile] (2924ms)
+   [105/579] (18.1%) Processing... 2026-02-21 20:32:57 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 5N 4E [groq/llama-3.3-70b-versatile] (598ms)
+   [106/579] (18.3%) Processing... 2026-02-21 20:32:58 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 5N 6E [groq/llama-3.3-70b-versatile] (614ms)
+   [107/579] (18.5%) Processing... 2026-02-21 20:32:59 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 5N 5E [groq/llama-3.3-70b-versatile] (761ms)
+   [108/579] (18.7%) Processing... 2026-02-21 20:32:59 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:32:59 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 20:33:01 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #3
+✅ 10N 11E [groq/llama-3.3-70b-versatile] (2302ms)
+   [109/579] (18.8%) Processing... 2026-02-21 20:33:03 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 6N 9E [groq/llama-3.3-70b-versatile] (1063ms)
+   [110/579] (19.0%) Processing... 2026-02-21 20:33:05 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 7N 6E [groq/llama-3.3-70b-versatile] (796ms)
+   [111/579] (19.2%) Processing... 2026-02-21 20:33:06 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 14N 13E [groq/llama-3.3-70b-versatile] (1039ms)
+   [112/579] (19.3%) Processing... 2026-02-21 20:33:06 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:33:06 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 20:33:08 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #4
+✅ 12N 11E [groq/llama-3.3-70b-versatile] (2337ms)
+   [113/579] (19.5%) Processing... 2026-02-21 20:33:09 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 9N 14E [groq/llama-3.3-70b-versatile] (1216ms)
+   [114/579] (19.7%) Processing... 2026-02-21 20:33:10 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 8N 6E [groq/llama-3.3-70b-versatile] (747ms)
+   [115/579] (19.9%) Processing... 2026-02-21 20:33:12 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 8N 6E [groq/llama-3.3-70b-versatile] (864ms)
+   [116/579] (20.0%) Processing... 2026-02-21 20:33:12 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:33:12 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 20:33:13 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:33:13 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 20:33:15 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #1
+🔄 Switched to Groq API key #2
+✅ 8N 9E [groq/llama-3.3-70b-versatile] (3157ms)
+   [117/579] (20.2%) Processing... 2026-02-21 20:33:16 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 6N 5E [groq/llama-3.3-70b-versatile] (658ms)
+   [118/579] (20.4%) Processing... 2026-02-21 20:33:16 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 3N 2E [groq/llama-3.3-70b-versatile] (449ms)
+   [119/579] (20.6%) Processing... 2026-02-21 20:33:17 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 8N 9E [groq/llama-3.3-70b-versatile] (811ms)
+   [120/579] (20.7%) Processing... 2026-02-21 20:33:18 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 10N 7E [groq/llama-3.3-70b-versatile] (928ms)
+   [121/579] (20.9%) Processing... 2026-02-21 20:33:18 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:33:18 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 20:33:20 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #3
+✅ 5N 5E [groq/llama-3.3-70b-versatile] (1934ms)
+   [122/579] (21.1%) Processing... 2026-02-21 20:33:21 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 2N 1E [groq/llama-3.3-70b-versatile] (336ms)
+   [123/579] (21.2%) Processing... 2026-02-21 20:33:22 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 4N 2E [groq/llama-3.3-70b-versatile] (379ms)
+   [124/579] (21.4%) Processing... 2026-02-21 20:33:22 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 4N 5E [groq/llama-3.3-70b-versatile] (517ms)
+   [125/579] (21.6%) Processing... 2026-02-21 20:33:24 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 4N 4E [groq/llama-3.3-70b-versatile] (693ms)
+   [126/579] (21.8%) Processing... 2026-02-21 20:33:24 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:33:24 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 20:33:26 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #4
+✅ 8N 7E [groq/llama-3.3-70b-versatile] (2115ms)
+   [127/579] (21.9%) Processing... 2026-02-21 20:33:27 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 7N 9E [groq/llama-3.3-70b-versatile] (938ms)
+   [128/579] (22.1%) Processing... 2026-02-21 20:33:27 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 3N 2E [groq/llama-3.3-70b-versatile] (533ms)
+   [129/579] (22.3%) Processing... 2026-02-21 20:33:28 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 6N 5E [groq/llama-3.3-70b-versatile] (647ms)
+   [130/579] (22.5%) Processing... 2026-02-21 20:33:28 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:33:28 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 20:33:29 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:33:29 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 20:33:31 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #1
+🔄 Switched to Groq API key #2
+✅ 7N 6E [groq/llama-3.3-70b-versatile] (3074ms)
+   [131/579] (22.6%) Processing... 2026-02-21 20:33:32 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 10N 8E [groq/llama-3.3-70b-versatile] (802ms)
+   [132/579] (22.8%) Processing... 2026-02-21 20:33:33 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 7N 9E [groq/llama-3.3-70b-versatile] (954ms)
+   [133/579] (23.0%) Processing... 2026-02-21 20:33:34 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:33:34 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 20:33:36 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #3
+✅ 7N 5E [groq/llama-3.3-70b-versatile] (1883ms)
+   [134/579] (23.1%) Processing... 2026-02-21 20:33:37 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 9N 10E [groq/llama-3.3-70b-versatile] (953ms)
+   [135/579] (23.3%) Processing... 2026-02-21 20:33:38 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 13N 12E [groq/llama-3.3-70b-versatile] (1123ms)
+   [136/579] (23.5%) Processing... 2026-02-21 20:33:38 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:33:38 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 20:33:40 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #4
+✅ 5N 5E [groq/llama-3.3-70b-versatile] (1781ms)
+   [137/579] (23.7%) Processing... 2026-02-21 20:33:40 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 5N 6E [groq/llama-3.3-70b-versatile] (804ms)
+   [138/579] (23.8%) Processing... 2026-02-21 20:33:41 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 6N 7E [groq/llama-3.3-70b-versatile] (980ms)
+   [139/579] (24.0%) Processing... 2026-02-21 20:33:43 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 7N 5E [groq/llama-3.3-70b-versatile] (612ms)
+   [140/579] (24.2%) Processing... 2026-02-21 20:33:44 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:33:44 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 20:33:45 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:33:45 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 20:33:47 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #1
+🔄 Switched to Groq API key #2
+✅ 9N 8E [groq/llama-3.3-70b-versatile] (3259ms)
+   [141/579] (24.4%) Processing... 2026-02-21 20:33:47 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 9N 8E [groq/llama-3.3-70b-versatile] (811ms)
+   [142/579] (24.5%) Processing... 2026-02-21 20:33:48 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 4N 3E [groq/llama-3.3-70b-versatile] (443ms)
+   [143/579] (24.7%) Processing... 2026-02-21 20:33:48 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 6N 5E [groq/llama-3.3-70b-versatile] (618ms)
+   [144/579] (24.9%) Processing... 2026-02-21 20:33:49 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:33:49 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 20:33:50 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #3
+✅ 7N 6E [groq/llama-3.3-70b-versatile] (1799ms)
+   [145/579] (25.0%) Processing... 2026-02-21 20:33:51 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 6N 5E [groq/llama-3.3-70b-versatile] (806ms)
+   [146/579] (25.2%) Processing... 2026-02-21 20:33:52 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 16N 15E [groq/llama-3.3-70b-versatile] (1328ms)
+   [147/579] (25.4%) Processing... 2026-02-21 20:33:55 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 5N 4E [groq/llama-3.3-70b-versatile] (800ms)
+   [148/579] (25.6%) Processing... 2026-02-21 20:33:55 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:33:55 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 20:33:57 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #4
+✅ 10N 9E [groq/llama-3.3-70b-versatile] (2049ms)
+   [149/579] (25.7%) Processing... 2026-02-21 20:33:57 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 3N 2E [groq/llama-3.3-70b-versatile] (507ms)
+   [150/579] (25.9%) Processing... 2026-02-21 20:33:58 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 5N 3E [groq/llama-3.3-70b-versatile] (720ms)
+   [151/579] (26.1%) Processing... 2026-02-21 20:33:59 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 2N 1E [groq/llama-3.3-70b-versatile] (312ms)
+   [152/579] (26.3%) Processing... 2026-02-21 20:33:59 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:33:59 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 20:34:00 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:34:00 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 20:34:02 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #1
+🔄 Switched to Groq API key #2
+✅ 4N 4E [groq/llama-3.3-70b-versatile] (2776ms)
+   [153/579] (26.4%) Processing... 2026-02-21 20:34:02 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 4N 4E [groq/llama-3.3-70b-versatile] (538ms)
+   [154/579] (26.6%) Processing... 2026-02-21 20:34:03 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 5N 4E [groq/llama-3.3-70b-versatile] (673ms)
+   [155/579] (26.8%) Processing... 2026-02-21 20:34:04 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 3N 2E [groq/llama-3.3-70b-versatile] (469ms)
+   [156/579] (26.9%) Processing... 2026-02-21 20:34:04 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:34:04 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 20:34:06 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #3
+✅ 7N 8E [groq/llama-3.3-70b-versatile] (1860ms)
+   [157/579] (27.1%) Processing... 2026-02-21 20:34:06 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 8N 6E [groq/llama-3.3-70b-versatile] (705ms)
+   [158/579] (27.3%) Processing... 2026-02-21 20:34:07 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 4N 4E [groq/llama-3.3-70b-versatile] (739ms)
+   [159/579] (27.5%) Processing... 2026-02-21 20:34:07 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:34:07 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 20:34:09 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #4
+✅ 4N 4E [groq/llama-3.3-70b-versatile] (1598ms)
+   [160/579] (27.6%) Processing... 2026-02-21 20:34:09 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 3N 3E [groq/llama-3.3-70b-versatile] (554ms)
+   [161/579] (27.8%) Processing... 2026-02-21 20:34:10 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 2N 1E [groq/llama-3.3-70b-versatile] (527ms)
+   [162/579] (28.0%) Processing... 2026-02-21 20:34:10 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:34:10 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 20:34:11 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:34:11 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 20:34:13 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #1
+🔄 Switched to Groq API key #2
+✅ 8N 7E [groq/llama-3.3-70b-versatile] (2936ms)
+   [163/579] (28.2%) Processing... 2026-02-21 20:34:14 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 7N 6E [groq/llama-3.3-70b-versatile] (690ms)
+   [164/579] (28.3%) Processing... 2026-02-21 20:34:15 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 5N 4E [groq/llama-3.3-70b-versatile] (624ms)
+   [165/579] (28.5%) Processing... 2026-02-21 20:34:16 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:34:16 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 20:34:17 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #3
+✅ 9N 8E [groq/llama-3.3-70b-versatile] (1853ms)
+   [166/579] (28.7%) Processing... 2026-02-21 20:34:18 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 9N 8E [groq/llama-3.3-70b-versatile] (691ms)
+   [167/579] (28.8%) Processing... 2026-02-21 20:34:18 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:34:18 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 20:34:20 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #4
+✅ 7N 8E [groq/llama-3.3-70b-versatile] (1798ms)
+   [168/579] (29.0%) Processing... 2026-02-21 20:34:20 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 7N 7E [groq/llama-3.3-70b-versatile] (667ms)
+   [169/579] (29.2%) Processing... 2026-02-21 20:34:21 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 13N 12E [groq/llama-3.3-70b-versatile] (1029ms)
+   [170/579] (29.4%) Processing... 2026-02-21 20:34:22 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:34:22 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 20:34:23 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:34:23 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 20:34:25 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #1
+🔄 Switched to Groq API key #2
+✅ 8N 7E [groq/llama-3.3-70b-versatile] (3140ms)
+   [171/579] (29.5%) Processing... 2026-02-21 20:34:27 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 6N 5E [groq/llama-3.3-70b-versatile] (733ms)
+   [172/579] (29.7%) Processing... 2026-02-21 20:34:27 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 6N 5E [groq/llama-3.3-70b-versatile] (618ms)
+   [173/579] (29.9%) Processing... 2026-02-21 20:34:28 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:34:28 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 20:34:29 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #3
+✅ 5N 4E [groq/llama-3.3-70b-versatile] (1734ms)
+   [174/579] (30.1%) Processing... 2026-02-21 20:34:29 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 2N 1E [groq/llama-3.3-70b-versatile] (300ms)
+   [175/579] (30.2%) Processing... 2026-02-21 20:34:30 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 5N 3E [groq/llama-3.3-70b-versatile] (543ms)
+   [176/579] (30.4%) Processing... 2026-02-21 20:34:31 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 14N 13E [groq/llama-3.3-70b-versatile] (1260ms)
+   [177/579] (30.6%) Processing... 2026-02-21 20:34:31 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:34:31 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 20:34:33 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #4
+✅ 8N 8E [groq/llama-3.3-70b-versatile] (1901ms)
+   [178/579] (30.7%) Processing... 2026-02-21 20:34:35 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 11N 10E [groq/llama-3.3-70b-versatile] (1134ms)
+   [179/579] (30.9%) Processing... 2026-02-21 20:34:35 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 3N 2E [groq/llama-3.3-70b-versatile] (367ms)
+   [180/579] (31.1%) Processing... 2026-02-21 20:34:36 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:34:36 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 20:34:37 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:34:37 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 20:34:39 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #1
+🔄 Switched to Groq API key #2
+✅ 7N 6E [groq/llama-3.3-70b-versatile] (3136ms)
+   [181/579] (31.3%) Processing... 2026-02-21 20:34:40 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 6N 5E [groq/llama-3.3-70b-versatile] (611ms)
+   [182/579] (31.4%) Processing... 2026-02-21 20:34:41 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 4N 3E [groq/llama-3.3-70b-versatile] (694ms)
+   [183/579] (31.6%) Processing... 2026-02-21 20:34:42 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 11N 10E [groq/llama-3.3-70b-versatile] (1020ms)
+   [184/579] (31.8%) Processing... 2026-02-21 20:34:42 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:34:42 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 20:34:44 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #3
+✅ 8N 8E [groq/llama-3.3-70b-versatile] (1900ms)
+   [185/579] (32.0%) Processing... 2026-02-21 20:34:45 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 5N 3E [groq/llama-3.3-70b-versatile] (482ms)
+   [186/579] (32.1%) Processing... 2026-02-21 20:34:45 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 7N 6E [groq/llama-3.3-70b-versatile] (695ms)
+   [187/579] (32.3%) Processing... 2026-02-21 20:34:45 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:34:45 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 20:34:47 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #4
+✅ 10N 9E [groq/llama-3.3-70b-versatile] (1964ms)
+   [188/579] (32.5%) Processing... 2026-02-21 20:34:49 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 5N 4E [groq/llama-3.3-70b-versatile] (623ms)
+   [189/579] (32.6%) Processing... 2026-02-21 20:34:50 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 8N 7E [groq/llama-3.3-70b-versatile] (799ms)
+   [190/579] (32.8%) Processing... 2026-02-21 20:34:51 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 8N 7E [groq/llama-3.3-70b-versatile] (892ms)
+   [191/579] (33.0%) Processing... 2026-02-21 20:34:51 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:34:51 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 20:34:53 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #1
+✅ 6N 7E [groq/llama-3.3-70b-versatile] (1814ms)
+   [192/579] (33.2%) Processing... 2026-02-21 20:34:53 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:34:53 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 20:34:54 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #2
+✅ 2N 1E [groq/llama-3.3-70b-versatile] (1377ms)
+   [193/579] (33.3%) Processing... 2026-02-21 20:34:56 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 13N 12E [groq/llama-3.3-70b-versatile] (1154ms)
+   [194/579] (33.5%) Processing... 2026-02-21 20:34:57 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 6N 6E [groq/llama-3.3-70b-versatile] (714ms)
+   [195/579] (33.7%) Processing... 2026-02-21 20:34:57 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:34:57 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 20:34:59 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #3
+✅ 6N 5E [groq/llama-3.3-70b-versatile] (1745ms)
+   [196/579] (33.9%) Processing... 2026-02-21 20:34:59 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 5N 5E [groq/llama-3.3-70b-versatile] (582ms)
+   [197/579] (34.0%) Processing... 2026-02-21 20:35:00 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 4N 3E [groq/llama-3.3-70b-versatile] (609ms)
+   [198/579] (34.2%) Processing... 2026-02-21 20:35:01 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 5N 4E [groq/llama-3.3-70b-versatile] (541ms)
+   [199/579] (34.4%) Processing... 2026-02-21 20:35:01 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 5N 4E [groq/llama-3.3-70b-versatile] (589ms)
+   [200/579] (34.5%) Processing... 2026-02-21 20:35:02 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:35:02 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 20:35:03 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #4
+✅ 4N 3E [groq/llama-3.3-70b-versatile] (1558ms)
+   [201/579] (34.7%) Processing... 2026-02-21 20:35:05 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 8N 8E [groq/llama-3.3-70b-versatile] (1092ms)
+   [202/579] (34.9%) Processing... 2026-02-21 20:35:06 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 10N 8E [groq/llama-3.3-70b-versatile] (1111ms)
+   [203/579] (35.1%) Processing... 2026-02-21 20:35:07 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 4N 3E [groq/llama-3.3-70b-versatile] (480ms)
+   [204/579] (35.2%) Processing... 2026-02-21 20:35:07 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:35:07 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 20:35:08 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:35:08 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 20:35:09 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #1
+🔄 Switched to Groq API key #2
+✅ 7N 7E [groq/llama-3.3-70b-versatile] (2924ms)
+   [205/579] (35.4%) Processing... 2026-02-21 20:35:10 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 6N 5E [groq/llama-3.3-70b-versatile] (940ms)
+   [206/579] (35.6%) Processing... 2026-02-21 20:35:11 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 9N 8E [groq/llama-3.3-70b-versatile] (868ms)
+   [207/579] (35.8%) Processing... 2026-02-21 20:35:12 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 4N 5E [groq/llama-3.3-70b-versatile] (635ms)
+   [208/579] (35.9%) Processing... 2026-02-21 20:35:12 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:35:12 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 20:35:14 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #3
+✅ 6N 5E [groq/llama-3.3-70b-versatile] (1716ms)
+   [209/579] (36.1%) Processing... 2026-02-21 20:35:15 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 5N 4E [groq/llama-3.3-70b-versatile] (481ms)
+   [210/579] (36.3%) Processing... 2026-02-21 20:35:16 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 3N 2E [groq/llama-3.3-70b-versatile] (367ms)
+   [211/579] (36.4%) Processing... 2026-02-21 20:35:16 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 2N 1E [groq/llama-3.3-70b-versatile] (506ms)
+   [212/579] (36.6%) Processing... 2026-02-21 20:35:16 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:35:16 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 20:35:18 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #4
+✅ 5N 6E [groq/llama-3.3-70b-versatile] (1914ms)
+   [213/579] (36.8%) Processing... 2026-02-21 20:35:19 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 10N 9E [groq/llama-3.3-70b-versatile] (999ms)
+   [214/579] (37.0%) Processing... 2026-02-21 20:35:20 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 12N 12E [groq/llama-3.3-70b-versatile] (1066ms)
+   [215/579] (37.1%) Processing... 2026-02-21 20:35:20 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:35:20 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 20:35:21 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:35:21 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 20:35:23 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #1
+🔄 Switched to Groq API key #2
+✅ 4N 3E [groq/llama-3.3-70b-versatile] (2849ms)
+   [216/579] (37.3%) Processing... 2026-02-21 20:35:24 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 13N 13E [groq/llama-3.3-70b-versatile] (1307ms)
+   [217/579] (37.5%) Processing... 2026-02-21 20:35:26 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 11N 10E [groq/llama-3.3-70b-versatile] (1075ms)
+   [218/579] (37.7%) Processing... 2026-02-21 20:35:27 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:35:27 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 20:35:29 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #3
+✅ 9N 8E [groq/llama-3.3-70b-versatile] (2018ms)
+   [219/579] (37.8%) Processing... 2026-02-21 20:35:29 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 3N 1E [groq/llama-3.3-70b-versatile] (321ms)
+   [220/579] (38.0%) Processing... 2026-02-21 20:35:30 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 7N 6E [groq/llama-3.3-70b-versatile] (696ms)
+   [221/579] (38.2%) Processing... 2026-02-21 20:35:31 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 12N 11E [groq/llama-3.3-70b-versatile] (1076ms)
+   [222/579] (38.3%) Processing... 2026-02-21 20:35:31 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:35:31 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 20:35:33 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #4
+✅ 6N 5E [groq/llama-3.3-70b-versatile] (1839ms)
+   [223/579] (38.5%) Processing... 2026-02-21 20:35:34 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 6N 8E [groq/llama-3.3-70b-versatile] (796ms)
+   [224/579] (38.7%) Processing... 2026-02-21 20:35:35 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 5N 4E [groq/llama-3.3-70b-versatile] (490ms)
+   [225/579] (38.9%) Processing... 2026-02-21 20:35:35 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:35:35 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 20:35:36 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:35:36 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 20:35:37 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #1
+🔄 Switched to Groq API key #2
+✅ 4N 3E [groq/llama-3.3-70b-versatile] (2717ms)
+   [226/579] (39.0%) Processing... 2026-02-21 20:35:38 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 9N 9E [groq/llama-3.3-70b-versatile] (879ms)
+   [227/579] (39.2%) Processing... 2026-02-21 20:35:40 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 9N 8E [groq/llama-3.3-70b-versatile] (881ms)
+   [228/579] (39.4%) Processing... 2026-02-21 20:35:40 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:35:40 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 20:35:41 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #3
+✅ 5N 6E [groq/llama-3.3-70b-versatile] (1715ms)
+   [229/579] (39.6%) Processing... 2026-02-21 20:35:42 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 3N 2E [groq/llama-3.3-70b-versatile] (499ms)
+   [230/579] (39.7%) Processing... 2026-02-21 20:35:43 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 5N 5E [groq/llama-3.3-70b-versatile] (767ms)
+   [231/579] (39.9%) Processing... 2026-02-21 20:35:43 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:35:43 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 20:35:45 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #4
+✅ 6N 5E [groq/llama-3.3-70b-versatile] (1965ms)
+   [232/579] (40.1%) Processing... 2026-02-21 20:35:46 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 10N 9E [groq/llama-3.3-70b-versatile] (879ms)
+   [233/579] (40.2%) Processing... 2026-02-21 20:35:47 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 5N 4E [groq/llama-3.3-70b-versatile] (577ms)
+   [234/579] (40.4%) Processing... 2026-02-21 20:35:47 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:35:47 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 20:35:48 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:35:48 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 20:35:49 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #1
+🔄 Switched to Groq API key #2
+✅ 2N 1E [groq/llama-3.3-70b-versatile] (2548ms)
+   [235/579] (40.6%) Processing... 2026-02-21 20:35:50 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 6N 4E [groq/llama-3.3-70b-versatile] (801ms)
+   [236/579] (40.8%) Processing... 2026-02-21 20:35:51 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 10N 9E [groq/llama-3.3-70b-versatile] (1224ms)
+   [237/579] (40.9%) Processing... 2026-02-21 20:35:52 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:35:52 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 20:35:54 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #3
+✅ 10N 8E [groq/llama-3.3-70b-versatile] (1968ms)
+   [238/579] (41.1%) Processing... 2026-02-21 20:35:56 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 15N 14E [groq/llama-3.3-70b-versatile] (1384ms)
+   [239/579] (41.3%) Processing... 2026-02-21 20:35:56 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:35:56 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 20:35:58 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #4
+✅ 8N 7E [groq/llama-3.3-70b-versatile] (2099ms)
+   [240/579] (41.5%) Processing... 2026-02-21 20:35:59 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 9N 7E [groq/llama-3.3-70b-versatile] (892ms)
+   [241/579] (41.6%) Processing... 2026-02-21 20:36:00 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 2N 1E [groq/llama-3.3-70b-versatile] (443ms)
+   [242/579] (41.8%) Processing... 2026-02-21 20:36:01 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 8N 7E [groq/llama-3.3-70b-versatile] (933ms)
+   [243/579] (42.0%) Processing... 2026-02-21 20:36:01 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:36:01 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 20:36:02 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:36:02 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 20:36:04 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #1
+🔄 Switched to Groq API key #2
+✅ 4N 3E [groq/llama-3.3-70b-versatile] (2748ms)
+   [244/579] (42.1%) Processing... 2026-02-21 20:36:04 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 6N 0E [groq/llama-3.3-70b-versatile] (469ms)
+   [245/579] (42.3%) Processing... 2026-02-21 20:36:05 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 3N 2E [groq/llama-3.3-70b-versatile] (548ms)
+   [246/579] (42.5%) Processing... 2026-02-21 20:36:05 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 6N 5E [groq/llama-3.3-70b-versatile] (717ms)
+   [247/579] (42.7%) Processing... 2026-02-21 20:36:06 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:36:06 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 20:36:08 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #3
+✅ 5N 3E [groq/llama-3.3-70b-versatile] (1702ms)
+   [248/579] (42.8%) Processing... 2026-02-21 20:36:08 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 5N 4E [groq/llama-3.3-70b-versatile] (531ms)
+   [249/579] (43.0%) Processing... 2026-02-21 20:36:09 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 1N 0E [groq/llama-3.3-70b-versatile] (306ms)
+   [250/579] (43.2%) Processing... 2026-02-21 20:36:09 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 5N 4E [groq/llama-3.3-70b-versatile] (615ms)
+   [251/579] (43.4%) Processing... 2026-02-21 20:36:11 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 5N 3E [groq/llama-3.3-70b-versatile] (700ms)
+   [252/579] (43.5%) Processing... 2026-02-21 20:36:11 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:36:11 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 20:36:12 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #4
+✅ 3N 2E [groq/llama-3.3-70b-versatile] (1519ms)
+   [253/579] (43.7%) Processing... 2026-02-21 20:36:13 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 3N 2E [groq/llama-3.3-70b-versatile] (445ms)
+   [254/579] (43.9%) Processing... 2026-02-21 20:36:14 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 4N 4E [groq/llama-3.3-70b-versatile] (596ms)
+   [255/579] (44.0%) Processing... 2026-02-21 20:36:14 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 1N 0E [groq/llama-3.3-70b-versatile] (410ms)
+   [256/579] (44.2%) Processing... 2026-02-21 20:36:14 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:36:14 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 20:36:15 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:36:15 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 20:36:17 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #1
+🔄 Switched to Groq API key #2
+✅ 4N 4E [groq/llama-3.3-70b-versatile] (2741ms)
+   [257/579] (44.4%) Processing... 2026-02-21 20:36:17 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 5N 5E [groq/llama-3.3-70b-versatile] (573ms)
+   [258/579] (44.6%) Processing... 2026-02-21 20:36:18 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 9N 9E [groq/llama-3.3-70b-versatile] (813ms)
+   [259/579] (44.7%) Processing... 2026-02-21 20:36:18 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:36:18 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 20:36:20 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #3
+✅ 5N 6E [groq/llama-3.3-70b-versatile] (1797ms)
+   [260/579] (44.9%) Processing... 2026-02-21 20:36:20 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 3N 2E [groq/llama-3.3-70b-versatile] (485ms)
+   [261/579] (45.1%) Processing... 2026-02-21 20:36:22 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 20N 19E [groq/llama-3.3-70b-versatile] (1555ms)
+   [262/579] (45.3%) Processing... 2026-02-21 20:36:24 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:36:24 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 20:36:26 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #4
+✅ 15N 12E [groq/llama-3.3-70b-versatile] (2298ms)
+   [263/579] (45.4%) Processing... 2026-02-21 20:36:26 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 2N 0E [groq/llama-3.3-70b-versatile] (272ms)
+   [264/579] (45.6%) Processing... 2026-02-21 20:36:27 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 12N 11E [groq/llama-3.3-70b-versatile] (1040ms)
+   [265/579] (45.8%) Processing... 2026-02-21 20:36:27 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:36:27 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 20:36:28 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:36:28 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 20:36:30 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #1
+🔄 Switched to Groq API key #2
+✅ 12N 11E [groq/llama-3.3-70b-versatile] (3362ms)
+   [266/579] (45.9%) Processing... 2026-02-21 20:36:31 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 2N 0E [groq/llama-3.3-70b-versatile] (266ms)
+   [267/579] (46.1%) Processing... 2026-02-21 20:36:32 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 9N 8E [groq/llama-3.3-70b-versatile] (981ms)
+   [268/579] (46.3%) Processing... 2026-02-21 20:36:32 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:36:32 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 20:36:35 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #3
+✅ 15N 15E [groq/llama-3.3-70b-versatile] (2599ms)
+   [269/579] (46.5%) Processing... 2026-02-21 20:36:36 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 5N 6E [groq/llama-3.3-70b-versatile] (676ms)
+   [270/579] (46.6%) Processing... 2026-02-21 20:36:36 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:36:36 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 20:36:38 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #4
+✅ 6N 5E [groq/llama-3.3-70b-versatile] (1725ms)
+   [271/579] (46.8%) Processing... 2026-02-21 20:36:39 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 14N 13E [groq/llama-3.3-70b-versatile] (1371ms)
+   [272/579] (47.0%) Processing... 2026-02-21 20:36:39 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:36:39 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 20:36:40 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:36:40 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 20:36:43 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #1
+🔄 Switched to Groq API key #2
+✅ 15N 11E [groq/llama-3.3-70b-versatile] (3743ms)
+   [273/579] (47.2%) Processing... 2026-02-21 20:36:44 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 7N 6E [groq/llama-3.3-70b-versatile] (700ms)
+   [274/579] (47.3%) Processing... 2026-02-21 20:36:44 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 3N 2E [groq/llama-3.3-70b-versatile] (350ms)
+   [275/579] (47.5%) Processing... 2026-02-21 20:36:44 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:36:44 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 20:36:46 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #3
+✅ 9N 8E [groq/llama-3.3-70b-versatile] (2003ms)
+   [276/579] (47.7%) Processing... 2026-02-21 20:36:47 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 5N 4E [groq/llama-3.3-70b-versatile] (520ms)
+   [277/579] (47.8%) Processing... 2026-02-21 20:36:48 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 3N 2E [groq/llama-3.3-70b-versatile] (473ms)
+   [278/579] (48.0%) Processing... 2026-02-21 20:36:48 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:36:48 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 20:36:50 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #4
+✅ 18N 17E [groq/llama-3.3-70b-versatile] (2456ms)
+   [279/579] (48.2%) Processing... 2026-02-21 20:36:51 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 2N 1E [groq/llama-3.3-70b-versatile] (506ms)
+   [280/579] (48.4%) Processing... 2026-02-21 20:36:52 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 11N 10E [groq/llama-3.3-70b-versatile] (1124ms)
+   [281/579] (48.5%) Processing... 2026-02-21 20:36:53 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:36:53 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 20:36:54 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:36:54 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 20:36:55 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:36:55 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 20:36:57 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #1
+🔄 Switched to Groq API key #2
+🔄 Switched to Groq API key #3
+✅ 7N 6E [groq/llama-3.3-70b-versatile] (4090ms)
+   [282/579] (48.7%) Processing... 2026-02-21 20:36:57 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 4N 3E [groq/llama-3.3-70b-versatile] (811ms)
+   [283/579] (48.9%) Processing... 2026-02-21 20:36:58 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 6N 5E [groq/llama-3.3-70b-versatile] (876ms)
+   [284/579] (49.1%) Processing... 2026-02-21 20:36:58 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:36:58 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 20:37:00 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #4
+✅ 4N 3E [groq/llama-3.3-70b-versatile] (1572ms)
+   [285/579] (49.2%) Processing... 2026-02-21 20:37:01 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 4N 4E [groq/llama-3.3-70b-versatile] (506ms)
+   [286/579] (49.4%) Processing... 2026-02-21 20:37:02 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 10N 12E [groq/llama-3.3-70b-versatile] (1045ms)
+   [287/579] (49.6%) Processing... 2026-02-21 20:37:02 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:37:02 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 20:37:03 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:37:03 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 20:37:04 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:37:04 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 20:37:06 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #1
+🔄 Switched to Groq API key #2
+🔄 Switched to Groq API key #3
+✅ 4N 3E [groq/llama-3.3-70b-versatile] (3938ms)
+   [288/579] (49.7%) Processing... 2026-02-21 20:37:07 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 6N 5E [groq/llama-3.3-70b-versatile] (683ms)
+   [289/579] (49.9%) Processing... 2026-02-21 20:37:07 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:37:07 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 20:37:09 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #4
+✅ 6N 5E [groq/llama-3.3-70b-versatile] (1867ms)
+   [290/579] (50.1%) Processing... 2026-02-21 20:37:10 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 4N 3E [groq/llama-3.3-70b-versatile] (680ms)
+   [291/579] (50.3%) Processing... 2026-02-21 20:37:10 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:37:10 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 20:37:11 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:37:11 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 20:37:12 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:37:12 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 20:37:14 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #1
+🔄 Switched to Groq API key #2
+🔄 Switched to Groq API key #3
+✅ 6N 5E [groq/llama-3.3-70b-versatile] (4227ms)
+   [292/579] (50.4%) Processing... 2026-02-21 20:37:15 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 7N 6E [groq/llama-3.3-70b-versatile] (634ms)
+   [293/579] (50.6%) Processing... 2026-02-21 20:37:15 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:37:15 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 20:37:17 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #4
+✅ 13N 10E [groq/llama-3.3-70b-versatile] (2085ms)
+   [294/579] (50.8%) Processing... 2026-02-21 20:37:18 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 10N 9E [groq/llama-3.3-70b-versatile] (945ms)
+   [295/579] (50.9%) Processing... 2026-02-21 20:37:19 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:37:19 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 20:37:20 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:37:20 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 20:37:21 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:37:21 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 20:37:23 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #1
+🔄 Switched to Groq API key #2
+🔄 Switched to Groq API key #3
+✅ 6N 5E [groq/llama-3.3-70b-versatile] (4539ms)
+   [296/579] (51.1%) Processing... 2026-02-21 20:37:24 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 3N 2E [groq/llama-3.3-70b-versatile] (614ms)
+   [297/579] (51.3%) Processing... 2026-02-21 20:37:24 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 6N 5E [groq/llama-3.3-70b-versatile] (655ms)
+   [298/579] (51.5%) Processing... 2026-02-21 20:37:25 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:37:25 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 20:37:27 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #4
+✅ 4N 3E [groq/llama-3.3-70b-versatile] (1616ms)
+   [299/579] (51.6%) Processing... 2026-02-21 20:37:28 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 10N 9E [groq/llama-3.3-70b-versatile] (1024ms)
+   [300/579] (51.8%) Processing... 2026-02-21 20:37:28 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:37:28 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 20:37:29 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:37:29 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 20:37:30 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:37:30 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 20:37:32 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #1
+🔄 Switched to Groq API key #2
+🔄 Switched to Groq API key #3
+✅ 7N 6E [groq/llama-3.3-70b-versatile] (4112ms)
+   [301/579] (52.0%) Processing... 2026-02-21 20:37:34 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 9N 7E [groq/llama-3.3-70b-versatile] (880ms)
+   [302/579] (52.2%) Processing... 2026-02-21 20:37:34 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:37:34 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 20:37:35 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #4
+✅ 4N 3E [groq/llama-3.3-70b-versatile] (1509ms)
+   [303/579] (52.3%) Processing... 2026-02-21 20:37:36 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 7N 7E [groq/llama-3.3-70b-versatile] (846ms)
+   [304/579] (52.5%) Processing... 2026-02-21 20:37:36 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:37:36 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 20:37:37 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:37:37 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 20:37:39 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:37:39 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3
+2026-02-21 20:37:41 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #1
+🔄 Switched to Groq API key #2
+🔄 Switched to Groq API key #3
+✅ 13N 12E [groq/llama-3.3-70b-versatile] (4547ms)
+   [305/579] (52.7%) Processing... 2026-02-21 20:37:41 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:37:41 | WARNING | ingestion.extractor | Groq 429 on key #3, rotated to key #4
+2026-02-21 20:37:43 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+🔄 Switched to Groq API key #4
+✅ 5N 4E [groq/llama-3.3-70b-versatile] (1896ms)
+   [306/579] (52.8%) Processing... 2026-02-21 20:37:43 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+✅ 5N 4E [groq/llama-3.3-70b-versatile] (551ms)
+   [307/579] (53.0%) Processing... 2026-02-21 20:37:43 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:37:43 | WARNING | ingestion.extractor | Groq 429 on key #4, rotated to key #1
+2026-02-21 20:37:44 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:37:44 | WARNING | ingestion.extractor | Groq 429 on key #1, rotated to key #2
+2026-02-21 20:37:46 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-02-21 20:37:46 | WARNING | ingestion.extractor | Groq 429 on key #2, rotated to key #3

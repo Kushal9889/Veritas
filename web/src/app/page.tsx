@@ -34,35 +34,82 @@ export default function Home() {
     setMessages((prev) => [...prev, { role: "user", content: userMsg }]);
     setLoading(true);
 
-    try {
-      // ---------------------------------------------------------
-      // ARCHITECT FIX: Detects if we are on Cloud or Localhost
-      // ---------------------------------------------------------
-      const baseUrl = process.env.NODE_ENV === 'production' 
-        ? '' 
-        : 'http://localhost:8000';
+    let streamedContent = "";
+    let sources: string[] = [];
+    let messageIndex = -1;
 
+    try {
+      const baseUrl = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:8000';
       const res = await fetch(`${baseUrl}/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          question: userMsg,
-          user_id: "web-client",
-        }),
+        body: JSON.stringify({ question: userMsg, user_id: "web-client" }),
       });
 
-      const data = await res.json();
+      if (!res.ok) throw new Error("Server error");
 
-      if (!res.ok) throw new Error(data.detail || "Server error");
+      const reader = res.body?.getReader();
+      if (!reader) throw new Error("No reader");
 
-      setMessages((prev) => [
-        ...prev,
-        {
-          role: "assistant",
-          content: data.response,
-          sources: data.sources, 
-        },
-      ]);
+      const decoder = new TextDecoder();
+      let buffer = "";
+
+      // Add empty assistant message
+      setMessages((prev) => {
+        messageIndex = prev.length;
+        return [...prev, { role: "assistant", content: "" }];
+      });
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split('\n');
+        buffer = lines.pop() || "";
+
+        for (const line of lines) {
+          if (line.startsWith('data: ')) {
+            const dataStr = line.slice(6).trim();
+            if (dataStr === '[DONE]') continue;
+
+            try {
+              const data = JSON.parse(dataStr);
+              
+              if (data.type === 'content') {
+                streamedContent += data.text;
+                setMessages((prev) => {
+                  const updated = [...prev];
+                  updated[messageIndex] = {
+                    role: "assistant",
+                    content: streamedContent,
+                    sources: sources.length > 0 ? sources : undefined
+                  };
+                  return updated;
+                });
+              } else if (data.type === 'sources') {
+                sources = data.sources || [];
+              }
+            } catch (e) {
+              console.error('Parse error:', e, dataStr);
+            }
+          }
+        }
+      }
+
+      // Final update with sources
+      if (sources.length > 0) {
+        setMessages((prev) => {
+          const updated = [...prev];
+          updated[messageIndex] = {
+            role: "assistant",
+            content: streamedContent,
+            sources: sources
+          };
+          return updated;
+        });
+      }
+
     } catch (err) {
       console.error(err);
       setMessages((prev) => [

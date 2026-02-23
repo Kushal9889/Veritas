@@ -1,4 +1,4 @@
-# Veritas: FAANG-Grade GraphRAG Intelligence
+# Veritas: GraphRAG Intelligence
 
 *A deterministic, hybrid AI retrieval system integrating Knowledge Graphs and Vector Databases to eradicate LLM hallucinations in complex domain analysis.*
 
